@@ -31,3 +31,6 @@ social:
     url: https://github.com/gyandeeps
   - title: linkedin
     url: https://www.linkedin.com/in/gyandeeps
+    
+pages_list:       
+  blog: "/blog"
