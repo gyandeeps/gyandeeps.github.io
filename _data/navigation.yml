@@ -1,0 +1,10 @@
+# Site navigation links
+
+- title: Home
+  url: http://gyandeeps.com
+
+- title: About
+  url: /about/
+
+- title: Blog
+  url: /posts/
