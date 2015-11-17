@@ -1,7 +1,7 @@
 ---
 layout: home
-excerpt: "A minimal Jekyll theme for your blog by designer Michael Rose."
-tags: [Jekyll, theme, responsive, blog, template]
+excerpt: "My website and blog"
+tags: [gyandeep, gyandeep singh, blog]
 image:
   feature: sample-image-1.jpg
   credit: WeGraphics

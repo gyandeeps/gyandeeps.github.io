@@ -2,7 +2,7 @@
 
 title:            Gyandeep Singh
 locale:           en_US
-url:
+url:              www.gyandeeps.com
 
 
 # Jekyll configuration
@@ -34,7 +34,6 @@ owner:
   twitter: gyandeeps
   facebook: gyandeeps
   google:
-    plus: gyandeeps
     analytics:
     verify:
     ad-client:
