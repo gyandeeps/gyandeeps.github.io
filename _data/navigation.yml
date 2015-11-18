@@ -1,10 +1,10 @@
 # Site navigation links
 
 - title: Home
-  url: http://gyandeeps.com
-
-- title: About
-  url: /about/
+  url: {{ site.url }}
 
 - title: Blog
   url: /posts/
+  
+- title: About
+  url: /about/
