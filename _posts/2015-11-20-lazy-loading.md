@@ -18,13 +18,13 @@ Lazy loading concept has been know for a very long time. For definition and more
 
 I have been part of the [ESLint](http://eslint.org/) JavaScript lint library for quite a while now. Overtime as we added more and more rules and started depending on more external dependencies, our load time of the library gradually started increasing. Recently people started talking about how it takes a long time for to load before it can actually start doing any thing. After hearing a lot from people I decided to concentrate on this area and find out whats going on and how we can improve the load time of the library.
 
-### Problems:
+### Problems
 
 * ESLint takes a long time to load before it can actually start doing any thing.
 * This time is growing with the increasing number of rules.
 * External dependencies are also impacting the load time.
 
-### Investigation:
+### Investigation
 
 First step was to benchmark the current loadtime of ESLint. To do that I needed a tool which could measure the require time of ESLint and also the require time of all of its dependencies individually. After setting these 2 goals I started hunting for modules which can do such benchmarking for me. The results was that there was no tool to do such a benchmarking for me.
 This led to the creation of a module called [load-perf](https://www.npmjs.com/package/load-perf), which does load benchmarks for your module and its dependencies including devDependencies. After creating this tool I was set to take up the challenge of improving ESLint load time.
@@ -67,45 +67,45 @@ After phase 1, I decided to tackle the problem by doing the following things:
 
 ##### With 5 rules active
 
-###### Regular loading
+* Regular loading
 
-```sh
+~~~ sh
 Makefile run: 958ms
-```
+~~~
 
-###### Lazy loading
+* Lazy loading
 
-```sh
+~~~ sh
 Makefile run: 830ms
-```
+~~~
 
 ##### With 41 rules active
 
-###### Regular loading
+* Regular loading
 
-```sh
+~~~ sh
 Makefile run: 989ms
-```
+~~~
 
-###### Lazy loading
+* Lazy loading
 
-```sh
+~~~ sh
 Makefile run: 882ms
-```
+~~~
 
 ##### With ALL rules active
 
-###### Regular loading
+* Regular loading
 
-```sh
+~~~ sh
 Makefile run: 1173ms
-```
+~~~
 
-###### Lazy loading
+* Lazy loading
 
-```sh
+~~~ sh
 Makefile run: 1128ms
-```
+~~~
 
 ### Conclusion
 
