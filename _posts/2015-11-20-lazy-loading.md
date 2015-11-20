@@ -1,11 +1,12 @@
 ---
 layout: post
-title: Game changer: Lazy loading
+title: Game changer - Lazy loading
 excerpt: "How lazy loading can have significant impact on module load."
 tags: [javascript, eslint, lazy-loading, lazy loading, nodejs, load-perf]
 modified: 2015-11-20
 comments: true
 author: gyandeeps
+share: true
 image:
     feature:
 ---
