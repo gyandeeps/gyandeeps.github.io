@@ -67,45 +67,18 @@ After phase 1, I decided to tackle the problem by doing the following things:
 
 ##### With 5 rules active
 
-* Regular loading
-
-~~~ sh
-Makefile run: 958ms
-~~~
-
-* Lazy loading
-
-~~~ sh
-Makefile run: 830ms
-~~~
+* Regular loading: `958ms`
+* Lazy loading: `830ms`
 
 ##### With 41 rules active
 
-* Regular loading
-
-~~~ sh
-Makefile run: 989ms
-~~~
-
-* Lazy loading
-
-~~~ sh
-Makefile run: 882ms
-~~~
+* Regular loading: `989ms`
+* Lazy loading: `882ms`
 
 ##### With ALL rules active
 
-* Regular loading
-
-~~~ sh
-Makefile run: 1173ms
-~~~
-
-* Lazy loading
-
-~~~ sh
-Makefile run: 1128ms
-~~~
+* Regular loading: `1173ms`
+* Lazy loading: `1128ms`
 
 ### Conclusion
 
