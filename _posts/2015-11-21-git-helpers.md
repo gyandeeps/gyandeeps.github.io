@@ -77,10 +77,10 @@ log
 
 ### Setup
 
-To use all these command follow the steps below to setup:
+To use all these command, follow the steps below to setup:
 
 1. Go to your user directory, for windows user it will be `C:\Users\<your user>`.
-1. Create a `.bashrc` file you do not have that file.
+1. Create a `.bashrc` file, if you do not have that file.
 1. Add/append the content from the below gist to that file.
 1. Open bash window. If already open then close it and then reopen bash window.
 1. Run `alias` command and you should see the list of all the alias defined.
