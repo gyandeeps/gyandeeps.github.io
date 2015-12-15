@@ -32,6 +32,13 @@
   <div class="article-author-side">
     {% include _author-bio.html %}
   </div>
+  <div id="news">
+    <h3>News</h3>
+    <article>
+        <h2><a href="http://javascriptair.com/episodes/2016-02-10/" target="_blank" title="{{ post.title }}">Learn about ESLint live</a></h2>
+        <p>Let's talk about what <a href="http://eslint.org/">ESLint</a> is, how it works, and how it can be super useful for your project. We'll be joined by ESLint committers and the author of <a href="http://npm.im/standard">the Standard library</a>.</p>
+    </article>
+  </div><!-- /#index -->
   <div id="index">
     <h3><a href="{{ site.url}}/posts/">Recent Posts</a></h3>
     {% for post in site.posts limit:5 %}
