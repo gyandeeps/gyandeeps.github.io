@@ -4,6 +4,7 @@ title: About Me
 tags: [about, gyandeep, gyandeep singh, gyandeeps]
 modified: 2015-11-22
 comments: false
+share: false
 image:
   feature:
 ---
