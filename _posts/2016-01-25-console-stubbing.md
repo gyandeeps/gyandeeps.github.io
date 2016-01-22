@@ -41,7 +41,7 @@ describe("validation", function(){
         assert.isFalse(false);
     });
 });
-{% highlight %}
+{% endhighlight %}
 
 The output will be
 
