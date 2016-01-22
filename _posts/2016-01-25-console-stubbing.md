@@ -13,9 +13,11 @@ image:
 
 We all love stubbing objects in unit test as it makes our life easier when writing tests. You can stub objects created by your source code or objects which our environment specific like node or browser. On [ESLint](https://github.com/eslint/eslint) project, we were stubbing `console` object so that we can see a clean output for the test runs. But later on we figured out that if the test has some errors then it will not be displayed by the testing framework on the cmd because we have stubbed the console object completely.
 
-For better understanding of stubbing please reference excellent article by [Elijah Manor](https://twitter.com/elijahmanor) - [Unit Test like a Secret Agent with Sinon.js](http://elijahmanor.com/unit-test-like-a-secret-agent-with-sinon-js/). {: .notice }
 
-Lets run through some scenarios of what happens when you do mock console vs when you don't mock console. We will be using the following libraries for demonstration purposes:
+For better understanding of stubbing please reference excellent article by [Elijah Manor](https://twitter.com/elijahmanor) - [Unit Test like a Secret Agent with Sinon.js](http://elijahmanor.com/unit-test-like-a-secret-agent-with-sinon-js/).
+
+
+Lets run through some scenarios of what happens when you do mock console vs when you don't mock console. We will be using the following libraries[^1] for demonstration purposes:
 
 1. [Mocha](https://mochajs.org/)
 1. [Sinon.JS](http://sinonjs.org/)
@@ -28,7 +30,7 @@ Lets run through some scenarios of what happens when you do mock console vs when
 
 Without mocking anything, if we run a sample test with all test passing.
 
-{% highlight JavaScript %}
+```js
 var assert = require("chai").assert;
 var sinon = require("sinon");
 
@@ -41,7 +43,7 @@ describe("validation", function(){
         assert.isFalse(false);
     });
 });
-{% endhighlight %}
+```
 
 The output will be
 
@@ -189,7 +191,8 @@ Here nothing gets displayed because `console` never got restored to its original
 
 Best way to tackle such scenarios is to extract the logging logic into its own module and then stub that module inside your tests.
 
-Create `logging.js` module to be consumed.
+
+Create `logging.js` module[^2] to be consumed.
 
 {% highlight JavaScript %}
 module.exports = {
@@ -250,5 +253,5 @@ Always avoid stubbing `console` as there is always a better way to achieve what 
 
 ##### References
 
-* Some of the code examples have been taken from [ESLint](http://eslint.org/) library.
-* For list of libraries used please reference the top section of the article.
+[^1] For list of libraries used please reference the top section of the article.
+[^2] Some of the code examples have been taken from [ESLint](http://eslint.org/) library.
