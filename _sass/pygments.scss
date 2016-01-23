@@ -3,12 +3,12 @@
    ========================================================================== */
 
 .highlight {
-	background-color: #efefef;
+	background-color: #f9f9f9;
 	font-family: $code-font;
 	@include font(12);
 	color: #333332;
 	margin-bottom: 1.5em;
-	@include rounded(4px);
+	@include rounded(6px);
 	pre {
 		position: relative;
 		margin: 0;
