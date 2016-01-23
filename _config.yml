@@ -9,7 +9,7 @@ url:              http://gyandeeps.com
 
 permalink:   /:categories/:title/
 markdown:    kramdown
-highlighter: pygments
+highlighter: rouge
 sass:
   sass_dir: _sass
   style: compressed
@@ -17,6 +17,7 @@ gems:
   - jekyll-sitemap
 
 kramdown:
+  syntax_highlighter: rouge
   auto_ids: true
   footnote_nr: 1
   entity_output: as_char
