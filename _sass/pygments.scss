@@ -79,5 +79,5 @@
     .gd { color: #f92672; } /* Generic.Deleted & Diff Deleted */
     .gi { color: #a6e22e; } /* Generic.Inserted & Diff Inserted */
     
-    .language-bash * {color: #f9f9f9 !important;}
+    .language-bash, .language-bash * {color: #f9f9f9 !important;}
 }
