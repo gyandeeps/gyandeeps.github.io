@@ -24,7 +24,7 @@ kramdown:
   syntax_highlighter: rouge
   syntax_highlighter_opts:
     css_class: 'coding'
-    line_numbers: true
+    line_numbers: false
     start_line: 1
     inline_theme: 'github'
 
