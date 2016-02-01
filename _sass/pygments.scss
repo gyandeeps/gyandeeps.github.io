@@ -4,7 +4,6 @@
 
 .highlight {
 	background-color: #333;
-	@include font(12);
 	color: #333332;
 	margin-bottom: 1.5em;
 	@include rounded(6px);

@@ -23,10 +23,8 @@ kramdown:
   toc_levels: 1..6
   syntax_highlighter: rouge
   syntax_highlighter_opts:
-    css_class: 'coding'
+    css_class: 'highlight'
     line_numbers: false
-    start_line: 1
-    inline_theme: 'github'
 
 # Octopress
 
