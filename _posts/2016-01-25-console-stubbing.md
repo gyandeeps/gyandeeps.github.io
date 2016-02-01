@@ -28,7 +28,7 @@ Lets run through some scenarios of what happens when you do mock console vs when
 
 Without mocking anything, if we run a sample test with all test passing.
 
-```js
+{% highlight Javascript %}
 var assert = require("chai").assert;
 var sinon = require("sinon");
 
@@ -41,11 +41,11 @@ describe("validation", function(){
         assert.isFalse(false);
     });
 });
-```
+{% endhighlight %}
 
 The output will be
 
-```sh
+{% highlight Bash %}
 $ ./node_modules/.bin/mocha test.js
 
   validation
@@ -54,7 +54,7 @@ $ ./node_modules/.bin/mocha test.js
 
 
   2 passing (6ms)
-```
+{% endhighlight %}
 
 Everything works as expected and mocha is able to easily display the output for the test.
 
@@ -62,7 +62,7 @@ Everything works as expected and mocha is able to easily display the output for 
 
 Without mocking anything, if we run a sample test in which one test has failure.
 
-```js
+{% highlight Javascript %}
 var assert = require("chai").assert;
 var sinon = require("sinon");
 
@@ -75,11 +75,11 @@ describe("validation", function(){
         assert.isFalse(false);
     });
 });
-```
+{% endhighlight %}
 
 The output will be
 
-```sh
+{% highlight Bash %}
 $ ./node_modules/.bin/mocha test.js
 
   validation
@@ -93,7 +93,7 @@ $ ./node_modules/.bin/mocha test.js
   1) validation Expect it to be true:
      AssertionError: expected false to be true
       stack trace...
-```
+{% endhighlight %}
 
 Everything works as expected and mocha is able to easily display the output for the test failure and the stack trace for information about the error.
 
@@ -101,7 +101,7 @@ Everything works as expected and mocha is able to easily display the output for 
 
 We will mock some common methods on `console` object and then the test which has some failures.
 
-```js
+{% highlight Javascript %}
 var assert = require("chai").assert;
 var sinon = require("sinon");
 
@@ -127,11 +127,11 @@ describe("validation", function(){
         assert.isFalse(false);
     });
 });
-```
+{% endhighlight %}
 
 The output will be
 
-```sh
+{% highlight Bash %}
 $ ./node_modules/.bin/mocha test.js
 
   validation
@@ -142,7 +142,7 @@ $ ./node_modules/.bin/mocha test.js
   1) validation Expect it to be true:
      AssertionError: expected false to be true
       stack trace...
-```
+{% endhighlight %}
 
 Everything works as expected and mocha is able to easily display the output for the test failure. But if you see closely the individual test run checks didn't get printed. Now that is because your test stubbed the console object. Since this is very simple example that is why the damage is minimum but it can lead to more bigger issues.
 
@@ -150,7 +150,7 @@ Everything works as expected and mocha is able to easily display the output for 
 
 when you do all the mocking inside the test (inside `it`) and not inside `beforeEach`. Then if a test fails the stub never restores itself. 
 
-```js
+{% highlight Javascript %}
 var assert = require("chai").assert;
 var sinon = require("sinon");
 
@@ -173,15 +173,15 @@ describe("validation", function(){
         assert.isFalse(false);
     });
 });
-```
+{% endhighlight %}
 
 The output will be
 
-```sh
+{% highlight Bash %}
 $ ./node_modules/.bin/mocha test.js
 
   validation
-```
+{% endhighlight %}
 
 Here nothing gets displayed because `console` never got restored to its original state. If you have many tests then this can lead to potential undetected issues. Debugging is a nightmare in this situation.
 
@@ -191,7 +191,7 @@ Best way to tackle such scenarios is to extract the logging logic into its own m
 
 Create `logging.js` module[^2] to be consumed.
 
-```js
+{% highlight Javascript %}
 module.exports = {
     info: function() {
         console.log.apply(console, Array.prototype.slice.call(arguments));
@@ -201,11 +201,11 @@ module.exports = {
         console.error.apply(console, Array.prototype.slice.call(arguments));
     }
 };
-```
+{% endhighlight %}
 
 Consume `logging` module created above inside your `app.js` module.
 
-```js
+{% highlight Javascript %}
 var log = require("./logging.js");
 
 module.exports = {
@@ -213,11 +213,11 @@ module.exports = {
         log.info("Hi " + name);
     }
 };
-```
+{% endhighlight %}
 
 So this way when you write unit test for the `app` module you can actually stub `logging` module.
 
-```js
+{% highlight Javascript %}
 var assert = require("chai").assert;
 var sinon = require("sinon");
 var proxyquire = require("proxyquire");
@@ -242,7 +242,7 @@ describe("validation", function(){
         assert.isFalse(false);
     });
 });
-```
+{% endhighlight %}
 
 ## Conclusion {#id}
 
