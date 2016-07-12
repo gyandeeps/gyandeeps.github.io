@@ -6,7 +6,7 @@
 # `jekyll serve`. If you change this file, please restart the server process.
 
 # Site Settings
-locale                   : "en_US"
+locale                   : "en-US"
 title                    : "Gyandeep Singh"
 title_separator          : "-"
 name                     : "Gyandeep Singh"
@@ -158,6 +158,8 @@ defaults:
       comments: true
       share: true
       related: true
+      author_profile: true
+
   # _pages
   - scope:
       path: ""
