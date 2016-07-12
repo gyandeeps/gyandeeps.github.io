@@ -1,14 +1,16 @@
 ---
-layout: post
 title: Git helpers - Simplify your git workflow
 excerpt: "Streamline your git workflows"
-tags: [javascript, git, github, open source, nodejs]
-modified: 2015-11-21
-comments: true
+categories:
+    - Javascript
+    - git
+tags: 
+    - javascript 
+    - git
+    - github
+    - nodejs
+    - open source
 author: gyandeeps
-share: true
-image:
-    feature:
 ---
 
 Being a git lover, I got tired of typing same commands over and over again. This motivated me to build some alias for my git workflow I use every day. Most of the alias was inherited from [Nicholas C. Zakas's gist](https://gist.github.com/nzakas/c6c98856a5eac76f06e3#file-alias-sh). I took that a step further by creating more alias which I use every time I contribute to open source projects like [Eslint]( http://eslint.org/).

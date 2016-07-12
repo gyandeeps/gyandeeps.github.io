@@ -1,14 +1,15 @@
 ---
-layout: post
 title: How to report bugs or errors
 excerpt: "Good practices to follow when reporting bugs or errors."
-tags: [javascript, nodejs, programming, coding, code, bugs, reporting]
-modified: 2015-12-10
-comments: true
+categories:
+    - Javascript
+tags: 
+    - javascript 
+    - programming
+    - nodejs
+    - code
+    - bugs
 author: gyandeeps
-share: true
-image:
-    feature:
 ---
 
 ### Introduction

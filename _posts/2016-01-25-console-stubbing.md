@@ -1,14 +1,14 @@
 ---
-layout: post
 title: Side effects of stubbing console in tests
 excerpt: "Avoid stubbing console inside tests as it can have unintentional effects on the out comes."
-tags: [javascript, mock, console, open source, nodejs, stub, sinonjs]
-modified: 2016-01-25
-comments: true
+categories:
+    - Javascript
+tags: 
+    - javascript 
+    - mocking
+    - stub
+    - sinonjs
 author: gyandeeps
-share: true
-image:
-    feature:
 ---
 
 We all love stubbing objects in unit test as it makes our life easier when writing tests. You can stub objects created by your source code or objects which our environment specific like node or browser. On [ESLint](https://github.com/eslint/eslint) project, we were stubbing `console` object so that we can see a clean output for the test runs. But later on we figured out that if the test has some errors then it will not be displayed by the testing framework on the cmd because we have stubbed the console object completely.
