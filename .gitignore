@@ -1,3 +1,6 @@
+_site
+.sass-cache
+.DS_Store
 *.sublime-project
 *.sublime-workspace
 .DS_Store
@@ -9,3 +12,5 @@ codekit-config.json
 node_modules
 npm-debug.log*
 .idea
+
+npm-debug.log*
