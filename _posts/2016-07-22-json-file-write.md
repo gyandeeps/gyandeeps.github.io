@@ -8,9 +8,6 @@ tags:
     - nodejs
     - json
     - write
-header:
-    overlay_image: json.png
-    caption: "Photo credit: [**schemastore**](http://schemastore.org/json/)"
 author: gyandeeps
 ---
 
