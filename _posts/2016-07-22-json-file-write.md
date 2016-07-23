@@ -9,7 +9,8 @@ tags:
     - json
     - write
 header:
-    image: json.png
+    overlay_color: #333
+    overlay_image: json.png
     caption: "Photo credit: [**schemastore**](http://schemastore.org/json/)"
 author: gyandeeps
 ---
