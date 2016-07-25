@@ -13,7 +13,7 @@ author: gyandeeps
 
 ### Introduction
 
-NodeJS gives us a nice API to write text to files. Yo can write whatever data you want to a file using [`fs.writeFile`](https://nodejs.org/dist/latest-v6.x/docs/api/fs.html#fs_fs_writefile_file_data_options_callback) function.
+NodeJS gives us a nice API to write text to files. You can write whatever data you want to a file using [`fs.writeFile`](https://nodejs.org/dist/latest-v6.x/docs/api/fs.html#fs_fs_writefile_file_data_options_callback) function.
 
 #### Simple example for text
 
@@ -63,7 +63,7 @@ fs.writeFile("./object.json", JSON.stringify(sampleObject), (err) => {
 
 #### Correct way to write beautified JSON file
 
-Problem with the above example is that json file is written correctly but its very readable since everything is minified into one line. We never indented the JSON to be minified this way.
+Problem with the above example is that json file is written correctly but its not readable since everything is minified into one line. We never indented for the JSON to be minified this way.
 
 ```js
 var fs = require("chai").assert;
