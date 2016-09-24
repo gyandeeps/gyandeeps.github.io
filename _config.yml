@@ -100,7 +100,7 @@ author:
   lastfm           :
   linkedin         : gyandeeps
   pinterest        :
-  soundcloud       :
+  soundcloud       : 
   stackoverflow    : http://stackoverflow.com/users/2449389/gyandeep
   steam            :
   tumblr           :
@@ -118,6 +118,7 @@ include:
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
+  - vendor
   - .asset-cache
   - .bundle
   - .jekyll-assets-cache
