@@ -1,5 +1,5 @@
 ---
-title: Use technology to strengthen relationship
+title: Use technology to strengthen your relationship
 excerpt: "How technology can help you strengthen your relationship"
 categories:
     - Javascript
