@@ -17,12 +17,12 @@ I got married in December 2014 and after getting married within a month my wife 
 After all this, one day I decided to do something about this and being a software engineer my first thought was why not use technology and automate this type of human interaction. And that is when I decided to spend few hours on this project.
 Now I am going to switch gear and convert the above situation into technical user story and solve the problem in hand.
 
-### User Story
+## User Story
 
 * Send text messages to wife everyday (I chose to send only 1 message). 
 * Make sure the message are appropriately worded with words like "love", "miss you", etc.
 
-### Technical design
+## Design
 
 I wanted to automate this process so that I can keep doing what I do and my wife still receives messages. This way I will also learn about AWS since everyone is talking about it.
 
@@ -30,7 +30,7 @@ I wanted to automate this process so that I can keep doing what I do and my wife
 * Build a script which picks a nice message and sends the message everyday.
     * I choose to send it at 4PM CDT (random time)
 
-### Work
+## Technical work
 
 Use these Amazon web services:
 
@@ -38,7 +38,7 @@ Use these Amazon web services:
 1. Lambda[^2]
 1. SNS[^3]
 
-#### CloudWatch
+### CloudWatch
 
 Setup cloud watch to run my lambda function at a particular time of the day. Its like a cron job.
 
@@ -47,7 +47,7 @@ Setup cloud watch to run my lambda function at a particular time of the day. Its
     * used Cron expression `0 21 * * ? *` (4PM CDT)
 * Select your lambda function inside the target.
 
-#### Lambda
+### Lambda
 
 This is the brain of this whole project. When this function is triggered by the CloudWatch, it basically picks up a random message from the array of messages and then posts the message to SNS topic (explained later). 
 
@@ -79,7 +79,7 @@ exports.handler = (event, context, callback) => {
 
 * Create a role which gives permission to your lambda function to post on SNS topic[^4].
 
-#### SNS
+### SNS
 
 We will use SNS to setup a topic and when ever you post on the topic it sends a SMS to all the subscribers.
 
@@ -89,7 +89,7 @@ We will use SNS to setup a topic and when ever you post on the topic it sends a 
     * Set protocol to SMS
     * Set the cell number
 
-### Conclusion
+## Conclusion
 
 This helped a lot since my wife gets so excited when she gets these messages everyday. She knows its me who is sending these messages but I always deny it. Now she will find out after reading this post.
 
