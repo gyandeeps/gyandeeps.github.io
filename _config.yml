@@ -82,7 +82,7 @@ google_ad_slot           : 2305152356
 # Site Author
 author:
   name: Gyandeep Singh
-  avatar: bio-photo.jpg
+  avatar: /assets/images/bio-photo.jpg
   bio: "Sr. Software Engineer (@cerner) Web & JavaScript Lover... JavaScript, NodeJs, HTML, CSS, Eslint, mongoDB, robot, #Friends lover"
   email: gyandeeps@gmail.com
   location         : "Kansas City"
