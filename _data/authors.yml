@@ -5,7 +5,7 @@ gyandeeps:
   web: http://gyandeeps.com
   email: gyandeeps@gmail.com
   bio: "Sr. Software Engineer (@cerner) Web & JavaScript Lover... JavaScript, NodeJs, HTML, CSS, Eslint, mongoDB, robot, #Friends lover"
-  avatar: bio-photo.jpg
+  avatar: /assets/images/bio-photo.png
   twitter: gyandeeps
   github: gyandeeps
   stackoverflow: 2449389/gyandeep
