@@ -2,9 +2,7 @@
 main:
     - title: Home
       url: http://gyandeeps.com
-      
     - title: "Blog"
-      url: /year-archive/  
-      
+      url: /year-archive/
     - title: About
       url: /about/
