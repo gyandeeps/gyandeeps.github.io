@@ -60,6 +60,15 @@ title: Eslint Prettier Integration
     flex-direction: column;
     height: 100vh;
   }
+  @media (max-width: 700px) {
+      .editors {
+        flex-direction: column;
+      }
+      .editor.input {
+        margin-right: 0px;
+        margin-bottom: 5px;
+      }
+    }
   .editors {
     display: flex;
     flex-direction: row;
@@ -121,6 +130,8 @@ title: Eslint Prettier Integration
     <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
     <label><textarea id="eslintConfig"></textarea> ESLint rules config</label>
     <button onclick="toggleOptions()">Expand/collapse options</button>
+    <label>ESLint - 3.13.1</label>
+    <label>Prettier - 0.7.0</label>
   </div>
 
   <div class="editors">
@@ -137,7 +148,7 @@ title: Eslint Prettier Integration
 var eslintConfigElem = document.getElementById("eslintConfig");
 
 eslintConfigElem.value = '{\n  "semi": [2, "never"]\n}';
-eslintConfigElem.cols = 50;
+eslintConfigElem.cols = 30;
 
 function toggleOptions() {
     eslintConfigElem.rows = eslintConfigElem.rows === 30 ? 2 : 30;
