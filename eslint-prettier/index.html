@@ -86,9 +86,11 @@ title: Eslint Prettier Integration
     margin-right: 5px;
   }
   .options {
-    display: flex;
     margin: 5px;
     margin-bottom: 0;
+  }
+  .options * {
+    vertical-align: top;
   }
   .title a {
     color: #e2e1e1;
@@ -117,6 +119,8 @@ title: Eslint Prettier Integration
     <label><input type="checkbox" id="singleQuote"></input> singleQuote</label>
     <label><input type="checkbox" id="trailingComma"></input> trailingComma</label>
     <label><input type="checkbox" id="bracketSpacing" checked></input> bracketSpacing</label>
+    <label><textarea id="eslintConfig"></textarea> ESLint rules config</label>
+    <button onclick="toggleOptions()">Expand/collapse options</button>
   </div>
 
   <div class="editors">
@@ -130,6 +134,15 @@ title: Eslint Prettier Integration
 </div>
 
 <script id="code">
+var eslintConfigElem = document.getElementById("eslintConfig");
+
+eslintConfigElem.value = '{\n  "semi": 2\n}';
+eslintConfigElem.cols = 50;
+
+function toggleOptions() {
+    eslintConfigElem.rows = eslintConfigElem.rows === 30 ? 2 : 30;
+}
+
 var OPTIONS = ['printWidth', 'tabWidth', 'singleQuote', 'trailingComma', 'bracketSpacing'];
 function setOptions(options) {
   OPTIONS.forEach(function(option) {
@@ -163,10 +176,7 @@ function format() {
   var res;
   try {
     res = eslint(prettier.format(inputEditor.getValue(), options), {
-        rules: {
-            semi: 2,
-            quotes: [2, "double"]
-        }
+        rules: JSON.parse(eslintConfigElem.value) || {}
     }, { filename: "foo.js" }).output;
   } catch (e) {
     res = e.toString();
@@ -174,7 +184,11 @@ function format() {
   outputEditor.setValue(res);
 }
 
-document.getElementsByClassName('options')[0].onchange = format;
+var delayInterval = null;
+document.getElementsByClassName('options')[0].onchange = function () {
+    clearTimeout(delayInterval);
+    delayInterval = setTimeout(format, 400);
+};
 
 var editorOptions = {
   lineNumbers: true,
