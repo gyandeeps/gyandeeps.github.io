@@ -4,6 +4,28 @@ permalink: /eslint-prettier/
 title: Eslint Prettier Integration
 ---
 
+<!doctype html>
+<html lang="{{ site.locale | slice: 0,2 | default: "en" }}" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+{% include seo.html %}
+
+<link href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ '/feed.xml' | absolute_url }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ site.title }} Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<meta http-equiv="cleartype" content="on">
+    {% include head/custom.html %}
+  
+
 <script>global = window;</script>
 <script src="eslint.js"></script>
 
@@ -82,7 +104,13 @@ title: Eslint Prettier Integration
     max-width: 40px;
   }
 </style>
+</head>
 
+  <body class="layout--{{ page.layout | default: layout.layout }}{% if page.classes or layout.classes %}{{ page.classes | default: layout.classes | join: ' ' | prepend: ' ' }}{% endif %}">
+
+    {% include browser-upgrade.html %}
+
+    
 <div class="container">
   <div class="options">
     <label class="title"><a href="https://github.com/jlongster/prettier">prettier v0.0.7</a></label>
@@ -173,4 +201,6 @@ try {
   inputEditor.setValue(code.innerText.trim());
 }
 </script>
-
+    {% include analytics.html %}
+  </body>
+</html>
