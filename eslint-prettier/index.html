@@ -176,6 +176,13 @@ function format() {
   var res;
   try {
     res = eslint(prettier.format(inputEditor.getValue(), options), {
+        "parserOptions": {
+            "ecmaVersion": 7,
+            "sourceType": "module",
+            "ecmaFeatures": {
+                "jsx": true
+            }
+        },
         rules: JSON.parse(eslintConfigElem.value) || {}
     }, { filename: "foo.js" }).output;
   } catch (e) {
