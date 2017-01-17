@@ -50,15 +50,6 @@ title: Eslint Prettier Integration
             flex-direction: column;
             height: 100vh;
         }
-        @media (max-width: 700px) {
-            .editors {
-                flex-direction: column;
-            }
-            .editor.input {
-                margin-right: 0px;
-                margin-bottom: 5px;
-            }
-        }
         .editors {
             display: flex;
             flex-direction: row;
@@ -102,6 +93,15 @@ title: Eslint Prettier Integration
         }
         input[type="number"] {
             max-width: 40px;
+        }
+        @media (max-width: 700px) {
+            .editors {
+                flex-direction: column;
+            }
+            .editor.input {
+                margin-right: 0px;
+                margin-bottom: 5px;
+            }
         }
     </style>
 </head>
