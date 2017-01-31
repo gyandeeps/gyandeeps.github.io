@@ -4,8 +4,48 @@ permalink: /docs/history/
 excerpt: "Change log of enhancements and bug fixes made to the theme."
 sidebar:
   nav: docs
-modified: 2016-12-12T15:26:47-05:00
+modified: 2017-01-24T10:55:37-05:00
 ---
+
+## [4.2.1](https://github.com/mmistakes/minimal-mistakes/releases/tag/4.2.1)
+
+### Enhancements
+
+- Improve `paginator.html` to support paginated pages that live inside of a subfolder. See [documentation](https://mmistakes.github.io/minimal-mistakes/docs/layouts/#home-page) for more details. [#764](https://github.com/mmistakes/minimal-mistakes/pull/764/)
+
+### Maintenance
+
+- Add `https` protocol to Google Universal Analytics embed. [#772](https://github.com/mmistakes/minimal-mistakes/pull/772)
+
+## [4.2.0](https://github.com/mmistakes/minimal-mistakes/releases/tag/4.2.0)
+
+### Enhancements
+
+- Add `video` helper (for YouTube/Vimeo) and video headers to `single`, `archive`, and `splash` layouts. [#788](https://github.com/mmistakes/minimal-mistakes/pull/788)
+- Add missing simplified Chinese localized UI text strings. [#747](https://github.com/mmistakes/minimal-mistakes/pull/747)
+- Add Nepali (Nepalese) localized UI text strings. [#785](https://github.com/mmistakes/minimal-mistakes/pull/785)
+- Remove borders from table elements found in Google Custom Search Engine widget. [#759](https://github.com/mmistakes/minimal-mistakes/issues/759)
+
+### Bug Fixes
+
+- Remove `position: sticky` JavaScript polyfill and fallback to default positioning for browsers that don't support it. [#752](https://github.com/mmistakes/minimal-mistakes/issues/752)
+
+### Maintenance
+
+- Fix invalid Google Universal Analytics example in documentation. [#783](https://github.com/mmistakes/minimal-mistakes/pull/783)
+- Bump `jekyll-sitemap` gem dependency to (1.0).
+
+## [4.1.1](https://github.com/mmistakes/minimal-mistakes/releases/tag/4.1.1)
+
+### Enhancements
+
+- Remove hardcoded `words_per_minute` "less than" and "minute read" values and make dynamic. [#703](https://github.com/mmistakes/minimal-mistakes/issues/703)
+- Update Font Awesome to `v4.7.0`. [#723](https://github.com/mmistakes/minimal-mistakes/issues/723), [#722](https://github.com/mmistakes/minimal-mistakes/issues/722)
+- Add support for YouTube channel URLs in author profile. [#716](https://github.com/mmistakes/minimal-mistakes/issues/716)
+
+### Bug Fixes
+
+- Add Jekyll as `spec.add_runtime_dependency` in `.gemspec`.
 
 ## [4.1.0](https://github.com/mmistakes/minimal-mistakes/releases/tag/4.1.0)
 
