@@ -1,3 +1,20 @@
+## Unreleased
+
+### Enhancements
+
+- Improve print stylesheet by increasing text contrast, removing elements that don't need to be printed, expanding URLs, and reducing amount of blank pages. [#909](https://github.com/mmistakes/minimal-mistakes/issues/909)
+
+### Maintenance
+
+- Remove extra word in comment. [#911](https://github.com/mmistakes/minimal-mistakes/pull/911)
+- Fix typo in Utility Class docs. [#915](https://github.com/mmistakes/minimal-mistakes/pull/915)
+
+## [4.3.1](https://github.com/mmistakes/minimal-mistakes/releases/tag/4.3.1)
+
+### Bug Fixes
+
+- Correctly show Related Posts heading when UI Text data file is omitted and `related: true` in YAML Front Matter. [#901](https://github.com/mmistakes/minimal-mistakes/pull/901)
+
 ## [4.3.0](https://github.com/mmistakes/minimal-mistakes/releases/tag/4.3.0)
 
 ### Enhancements
