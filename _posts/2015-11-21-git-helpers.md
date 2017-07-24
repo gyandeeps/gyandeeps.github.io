@@ -21,9 +21,9 @@ Being a git lover, I got tired of typing same commands over and over again. This
 
 When you plan to work on an issue on an open source project, you will want to create a new branch on your project and then start work on it. For that you have to go through couple of steps. To stream line that process now on top of your project you can just run the command:
 
-{% highlight Bash %}
+```sh
 ws 34
-{% endhighlight %}
+```
 
 This command will update the master branch with the updates from the remote and then create a new branch on it with name `issue34`.
 
@@ -31,25 +31,25 @@ This command will update the master branch with the updates from the remote and 
 
 Once you are done with your work on the branch. Then you can simply run the below command to delete the branch from local and remote git.
 
-{% highlight Bash %}
+```sh
 wd 34
-{% endhighlight %}
+```
 
 #### Update your branch with remote master
 
 let’s say after working on your branch, you want to update your branch with latest content from the remote master. This is important in scenarios where you want to rebase your branch with latest content.
 
-{% highlight Bash %}
+```sh
 update
-{% endhighlight %}
+```
 
 #### Squash your commits
 
 I always prefer to keep my changes history clean by squashing my commits. Once you are working on a branch and you want to squash your commits, simple run the following command to rebase. You can pass in a parameter of how many commits you want to include in your rebase from the HEAD. By default it will run rebase on last 2 commits.
 
-{% highlight Bash %}
+```sh
 rebase 4 # This will rebase on last 4 commits, default is 2
-{% endhighlight %}
+```
 
 #### Push your changes to remote
 
@@ -57,15 +57,15 @@ After you have finished your work, you want to push your changes to remote. Here
 
 Regular push:
 
-{% highlight Bash %}
+```sh
 push # This will push your branch changes but will not push on master
-{% endhighlight %}
+```
 
 Force push:
 
-{% highlight Bash %}
+```sh
 fpush # This will push your branch changes but will not push on master
-{% endhighlight %}
+```
 
 Both commands will not allow you to push it to master because it considered a good practice to always branch off your changes and then merge it to master using a PR. This is completely my view.
 
@@ -73,9 +73,9 @@ Both commands will not allow you to push it to master because it considered a go
 
 Quick and easy way to view your commit log in oneline.
 
-{% highlight Bash %}
+```sh
 log
-{% endhighlight %}
+```
 
 ### Setup
 
