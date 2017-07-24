@@ -13,6 +13,7 @@ figure.highlight {
   border-radius: $border-radius;
   background-color: $code-background-color;
   box-shadow: $box-shadow;
+  color: white;
 
   &:before {
     position: absolute;
