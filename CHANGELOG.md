@@ -2,13 +2,47 @@
 
 ### Enhancements
 
+- Add Greek localized UI text strings. [#1159](https://github.com/mmistakes/minimal-mistakes/pull/1159)
+- Remove blank YAML Front Matter from JavaScript banner. [#1158](https://github.com/mmistakes/minimal-mistakes/issues/1158)
+- Improve `page` and `archive` layouts to visually center main content and harmonize sidebar widths and placement. [#1166](https://github.com/mmistakes/minimal-mistakes/pull/1166)
+- Increase font-size of code blocks.
+- Reduce indent of nested "table of contents" links.
+- Extend [archive grid view](https://mmistakes.github.io/minimal-mistakes/docs/layouts/) to the right to better fill the page.
+
+## Bug Fixes
+
+- Fix positioning of sidebar table of contents when using `layout: splash`. [#1169](https://github.com/mmistakes/minimal-mistakes/issues/1169)
+- Fix "follow" links `z-index` order to avoid overlapping issues. [#1167](https://github.com/mmistakes/minimal-mistakes/issues/1167)
+
+### Maintenance
+
+- Fix typo `words_per_minute` typo in documentation. [#1164](https://github.com/mmistakes/minimal-mistakes/pull/1164)
+- Remove outside and right borders in `table`s.
+- Adjust width of `.sidebar` to match `.sidebar__right`.
+- Add sample documents to ["portfolio" collection](https://mmistakes.github.io/minimal-mistakes/portfolio/) for testing grid view.
+- Fix typo in stylesheets documentation. [#1170](https://github.com/mmistakes/minimal-mistakes/pull/1170)
+
+## [4.5.0](https://github.com/mmistakes/minimal-mistakes/releases/tag/4.5.0)
+
+### Enhancements
+
 - Add scrollbar to sidebars with overflowing content that extends outside the viewport's height. [#706](https://github.com/mmistakes/minimal-mistakes/issues/706)
 - Add missing Spanish UI text strings. [#1118](https://github.com/mmistakes/minimal-mistakes/pull/1118)
 - Update Susy to version 3 and rewrite grid CSS to be more readable.
+- Refactor intro animations into a separate Sass variable `$intro-transition` to allow for customizing. [#1147](https://github.com/mmistakes/minimal-mistakes/pull/1147)
+- Add [**jekyll-data**](https://github.com/ashmaroli/jekyll-data) as a dependency to read data files from theme-gem. [#1131](https://github.com/mmistakes/minimal-mistakes/pull/1131)
+- Add support for customizing header image alternative text through YAML Front Matter. [#1138](https://github.com/mmistakes/minimal-mistakes/pull/1138)
 
 ### Bug Fixes
 
 - Fix Sass `DEPRECATION WARNING: Passing a string to call()` by [upgrading Susy to version 3](https://github.com/mmistakes/minimal-mistakes/commit/387f8149d6270b876f224a57a07062ffb0647938). [#1114](https://github.com/mmistakes/minimal-mistakes/issues/1114)
+- Fix disappearing author profile links due to tapping the "Follow" button and changing a browser's viewport width to > `$lg`. [#1136](https://github.com/mmistakes/minimal-mistakes/issues/1136)
+
+### Maintenance
+
+- Replace reference to "Basically Basic theme" with **Minimal Mistakes**. [#1149](https://github.com/mmistakes/minimal-mistakes/pull/1149)
+- Add documentation for disabling CSS3 animations. [#1150](https://github.com/mmistakes/minimal-mistakes/pull/1150)
+- Update quickstart, installation, and overriding defaults documentation. [#1151](https://github.com/mmistakes/minimal-mistakes/pull/1151)
 
 ## [4.4.2](https://github.com/mmistakes/minimal-mistakes/releases/tag/4.4.2)
 
