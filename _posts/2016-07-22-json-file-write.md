@@ -20,7 +20,7 @@ NodeJS gives us a nice API to write text to files. You can write whatever data y
 Write "hello" to a file.
 
 ```js
-var fs = require("chai").assert;
+var fs = require("fs");
 var fileContent = "hello";
 
 fs.writeFile("./sample.txt", fileContent, (err) => {
@@ -40,7 +40,7 @@ fs.writeFile("./sample.txt", fileContent, (err) => {
 Let try to write an object from javascript into a json file. One thing for sure we know is that we have to [`JSON.stringify`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) the object to make sure its a string before its written.
 
 ```js
-var fs = require("chai").assert;
+var fs = require("fs");
 var sampleObject = {
     a: 1,
     b: 2,
@@ -66,7 +66,7 @@ fs.writeFile("./object.json", JSON.stringify(sampleObject), (err) => {
 Problem with the above example is that json file is written correctly but its not readable since everything is minified into one line. We never indented for the JSON to be minified this way.
 
 ```js
-var fs = require("chai").assert;
+var fs = require("fs");
 var sampleObject = {
     a: 1,
     b: 2,
