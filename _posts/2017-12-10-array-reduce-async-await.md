@@ -6,6 +6,7 @@ categories:
 tags: 
     - javascript
     - async
+    - await
     - array
 author: gyandeeps
 share: true
@@ -35,7 +36,7 @@ const getNonSemverPatchPRs = async () => {
 };
 ```
 
-#### Fetch all the commits for a PR
+### Fetch all the commits for a PR
 
 To complete step 1 we need to perform a network call to fetch all the commit for a PR. Now this call will be promised based. Since we have to make `await` the call we need to make the reduce handler function `async`.
 
@@ -52,7 +53,7 @@ const getNonSemverPatchPRs = async () => {
 };
 ```
 
-#### Check the commit message from the first commit
+### Check the commit message from the first commit
 
 Now we are going to check the commit message of the first commit to see if it starts with `Fix:` or `Docs:`. This call is synchronous call to a helper function.
 
@@ -69,7 +70,7 @@ const getNonSemverPatchPRs = async () => {
 };
 ```
 
-#### All to collection if PR is not semver patch PR
+### Add to collection if PR is not semver patch PR
 
 Now we are going to check if it’s not a semver patch PR then add to collection of reduce otherwise ignore it.
 
@@ -91,7 +92,7 @@ const getNonSemverPatchPRs = async () => {
 };
 ```
 
-### Problem inside reduce with async function handler
+## Problem inside reduce with async function handler
 
 * **Thought:** Based on your knowledge of `async/await` and array `reduce`, you would think that it will keep pushing the `pr` objects to the `collection` and return the `collection` so that next iteration of the reduce can use it and keep adding stuff to the collection.
 
