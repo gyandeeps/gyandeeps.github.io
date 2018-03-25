@@ -6,6 +6,8 @@ div.highlighter-rouge,
 figure.highlight {
   position: relative;
   margin-bottom: 1em;
+  background: $base00;
+  color: $base05;
   font-family: $monospace;
   font-size: $type-size-6;
   //line-height: 1.8;
@@ -28,29 +30,37 @@ figure.highlight {
     speak: none;
   }
 
+  > pre,
   pre.highlight {
     margin: 0;
     padding: 1em;
   }
 }
 
-figure.highlight {
-  padding-left: 1em;
-  padding-right: 1em;
-}
-
 .highlight table {
+  margin-bottom: 0;
   font-size: 1em;
   border: 0;
 
   td {
-    padding: 5px;
+    padding: 0;
+    width: calc(100% - 1em);
     border: 0;
 
     /* line numbers*/
-    &.gutter {
+    &.gutter,
+    &.rouge-gutter {
       padding-right: 1em;
-      color: rgba($muted-text-color, 0.5);
+      width: 1em;
+      color: $base04;
+      border-right: 1px solid $base04;
+      text-align: right;
+    }
+
+    /* code */
+    &.code,
+    &.rouge-code {
+      padding-left: 1em;
     }
   }
 
