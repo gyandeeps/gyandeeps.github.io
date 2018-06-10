@@ -16,7 +16,7 @@ share: true
 
 # Introduction
 
-This is walk through on how to build an application using AWS AppSync and what all things are needed on the front end side to get the whole system working. We will not be covering any basics as there are so many blog posts out there for that.
+Walk through on how to build an application using AWS AppSync and what all things are needed on the front end side to get the whole system working. We will not be covering any basics as there are so many blog posts out there for that.
 
 ## Prerequisites
 
@@ -32,12 +32,12 @@ Basic understanding of:
 
 * [Building Serverless React GraphQL Applications with AWS AppSync](https://tylermcginnis.com/building-serverless-react-graphql-apps-with-aws-appsync) by [Nader Dabit](https://twitter.com/dabit3)
 
-I don't have basic understanding on any of these topics then i would highly recommended learning about that before proceeding ahead.
+If you don't have basic understanding on any of these topics then I would highly recommended learning about that before proceeding ahead.
 
 ## What are we going to learn
 
 * Wire up AWS AppSync with all the config
-* Authentication using AWS Cognito
+* Authentication using AWS Cognito integration
 * Manage mutation and resolvers
 * Manage client state and server side state using apollo
 
@@ -317,6 +317,20 @@ Most important pieces to understand here are:
     * In the main file in `stateLink` using `withClientState` we defined the mutation resolver for add todo call that basically writes to the local cache and then thre components refreshes to read the4 values.
     * Think of this as **`redux` actions and reducers**.
 * `GET_ORDERS` - This graphql query doesn’t use the `@client` so its hits the graphql interface over the network and then when data comes back it updates the cache automagically.
+
+## Authentication
+
+After all the setup done, if you want your route in this case `App` to be authenticated before procedding then you can use the helper to achieve that.
+
+```js
+import { withAuthenticator } from "aws-amplify-react";
+
+// App class definition here as seen above
+
+export default withAuthenticator(App);
+```
+
+So before this components gets rendered it will route to login page. For more details on this I would recommend using the [guide here](https://aws.github.io/aws-amplify/media/authentication_guide). It explains everything very nicely.
 
 # Conclusion
 
