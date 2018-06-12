@@ -85,7 +85,7 @@ ReactDOM.render(
 
 ## Add AWS AppSync layer to connect to backend
 
-We are going to use `aws-amplify` library provided by AWS AppSync team. This would take care of talking to direct AWS resources like `cognito` for Auth, analytics api, pubsub, API calls, etc. For more detailed info, please use the [readme](https://github.com/aws/aws-amplify/blob/master/README.md).
+We are going to use `aws-amplify` library provided by AWS AppSync team. This would take care of talking directly to AWS resources like `cognito` for Auth, analytics api, pubsub, API calls, etc. For more detailed info, please use the [readme](https://github.com/aws/aws-amplify/blob/master/README.md).
 
 ```js
 import * as React from "react";
@@ -127,7 +127,7 @@ ReactDOM.render(
 
 ## Add cache and state management
 
-We are going to use `aws-appsync` and `aws-appsync-react` libraries to create local cache where the data from graphql and your local state will be saved. The concept is more like `Redux` but here behind the scene `aws-appsync` use Apollo cache and its libraries to do the heavy lifting.
+We are going to use `aws-appsync` and `aws-appsync-react` libraries to create local cache where the data from graphql and your local state will be saved. The concept is more like `Redux` but here behind the scene `aws-appsync` uses Apollo cache and its libraries to do the heavy lifting.
 
 ```js
 import * as React from "react";
@@ -137,6 +137,7 @@ import Amplify, { Auth } from "aws-amplify";
 import { ApolloProvider } from "react-apollo";
 import { ApolloLink } from "apollo-link";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import AWSAppSyncClient, { createAppSyncLink } from "aws-appsync";
 
 Amplify.configure({
     Auth: {
@@ -235,13 +236,13 @@ A lot of stuff happened in the code above. Lets discuss the important pieces her
 
 #### Cache/State
 
-Based on all the articles out their, when you use `AWSAppSyncClient` directly by providing the first parameter you automagically start maintaining local cache of your remote calls. i.e. when you fetch data from your graphql api then its stored inside cache. But the things we are doing is that we are also adding local state where you don’t contact the graphql server at all. We do that using `apollo-link-state`.
+Based on all the articles out their, when you use `AWSAppSyncClient` directly by providing the first parameter you automagically start maintaining local cache of your remote calls. i.e. when you fetch data from your graphql api then its stored inside cache. But we want to maintain some client side local state as well, which is not coming from the grapghql api. We do that using `apollo-link-state`.
 
 Most important pieces to understand here are:
 
-* `createAppSyncLink` - It does the default state setup done by the `aws-appsync` library.
+* `createAppSyncLink` - Default state setup done by the `aws-appsync` library.
 * `withClientState` - we create the local state maintained by the app on the front-end. In this case it’s the todo state.
-* `ApolloLink.from` - Using this we combine the output from above 2 commands to get a single entry point into the state.
+* `ApolloLink.from` - Using this we combine the output from above 2 commands to get a single entry point into the state. Think of this as merging the remote and local state into a single state.
 * `ApolloProvider` -  It’s like `react-redux` provider which exposes the client downstream into other components.
 
 ## Using state in component
@@ -312,11 +313,11 @@ class App extends React.Component {
 
 Most important pieces to understand here are:
 
-* `Query` and `Mutation` - Components to be used to use graphql stuff.
+* `Query` and `Mutation` - Components for graphql stuff.
 * `onClick` `addTodo` call - Add todo calls a mutation on the client side using the directive `@client` inside the mutation definition. This tells the underlying apollo infrastructure that this graphql command is for local changes only.
-    * In the main file in `stateLink` using `withClientState` we defined the mutation resolver for add todo call that basically writes to the local cache and then thre components refreshes to read the4 values.
+    * In the main file in `stateLink` using `withClientState`, we defined the mutation resolver for add todo that basically writes to the local cache and then the components refreshes to read the values.
     * Think of this as **`redux` actions and reducers**.
-* `GET_ORDERS` - This graphql query doesn’t use the `@client` so its hits the graphql interface over the network and then when data comes back it updates the cache automagically.
+* `GET_ORDERS` - This graphql query doesn’t use the `@client` so it hit's the graphql interface over the network and then when data comes back it updates the cache automagically.
 
 ## Authentication
 
