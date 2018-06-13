@@ -138,6 +138,7 @@ import { ApolloProvider } from "react-apollo";
 import { ApolloLink } from "apollo-link";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import AWSAppSyncClient, { createAppSyncLink } from "aws-appsync";
+import { withClientState } from "apollo-link-state";
 
 Amplify.configure({
     Auth: {
