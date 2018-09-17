@@ -45,7 +45,7 @@ class NameForm extends Component {
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Name:
-          <input
+                    <input
                         type="text"
                         value={this.state.name}
                         onChange={this.handleChange}
@@ -147,7 +147,7 @@ class NameForm extends Component {
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Name:
-          <input
+                    <input
                         type="text"
                         value={this.state.name}
                         onChange={this.handleChange}
