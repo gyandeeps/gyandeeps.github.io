@@ -108,7 +108,7 @@ author:
   name: Gyandeep Singh
   avatar: /assets/images/default-bio.png
   bio: "Sr. Software Engineer (@cerner) Web & JavaScript Lover... JavaScript, NodeJs, HTML, CSS, Eslint, mongoDB, robot, #Friends lover"
-  email: gyandeeps@gmail.com
+  # email: gyandeeps@gmail.com
   location: "Kansas City"
   uri:
   home: # null (default), "absolute or relative url to link to author home"
