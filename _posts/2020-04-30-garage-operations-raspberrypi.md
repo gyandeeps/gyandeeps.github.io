@@ -51,7 +51,7 @@ _Note: Please read up on raspberry pi GPIO pins as it will help you when you wor
 
 First, note down the current IP address of the Pi. Second. makesure you make the ip of the Pi static because we dont want to keep changing it after restarts. This is not a necessary step but it helps while you work on this.
 
-In my setup i have google fiber, so i logged into the router setup page and in the clinet list select raspberry pi. Activated the `reserved` flag on pi clinet so that it keeps the same ip address. Feel free to google on how to do this on your router.
+In my setup i have google fiber, so i logged into the router setup page and in the clinet list select raspberry pi. Activated the `reserved` flag on pi client so that it keeps the same ip address. Feel free to google on how to do this on your router.
 
 ### Computer
 
@@ -62,7 +62,9 @@ In my setup i have google fiber, so i logged into the router setup page and in t
 
 ## Hardware setup
 
-Lets setup all the different parts to get door working first. At this point we will not add the functionality to know whether the garage is open or not. We are going to add that later on.
+Lets setup all the different parts to get door working first. At this point dont worry about all these connection as we will go in detail when we start programming them.
+
+We will use `BCM` conventions for GPIO pin numbers. When using pin numbers those will denote physical pin numbers. Run `gpio readall` inside bash session on your raspberry pi to get more details.
 
 #### Find the manual button wire connection into your garage door
 
@@ -71,6 +73,24 @@ I have a Chamberlain garage door opener, I was able to trace the button (from th
 #### Connect wires from your garage opener sockets to relay module
 
 * Make sure you connect the negative to center terminal of the relay module and hot (positive) wire to left terminal on the relay module.
-* 
+* Concept is that when we connect these two wires, it completets the circuit which inturn trigger the garage open/close operation.
+
+#### Connect relay to raspberry pi
+
+* Connect GND to pin 6
+* Connect VCC to pin 2 ie 5v supply
+* Connect IN1 to GPIO 4
+
+IN1 pin is what will be used to trigger the changes. Other 2 wires is to provide power (5v) to the relay.
+
+#### Connect mechanical switch to raspberry pi
+
+* Connect COM to pin 1 ie 3v supply
+* Connect NO to GPIO 2
+  * This is pin is an pull-up type which means it outputs 3.3v
+  * I am still trying to better understand this area.
+  * I think you can use other pins as pull-up by configuration but i did not try it.
+
+
 
 
