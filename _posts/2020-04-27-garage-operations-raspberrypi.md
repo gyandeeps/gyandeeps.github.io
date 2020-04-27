@@ -21,7 +21,7 @@ In this post I am going to explain how I automated certain garage door operation
 * Override auto close in 5 mins.
 * Know the time it was last closed/opened.
 
-_Note: This is my first take at this and I am still learning. _
+_Note: This is my first take at this and I am still learning._
 
 # Parts needed
 
@@ -47,7 +47,7 @@ Here is what I used:
 
 Thanks to [@crosstalksol](https://twitter.com/crosstalksol) for the awesome setup guide.
 
-_Note: Please read up on raspberry pi GPIO pins as it will help you when you work on this project. _ 
+_Note: Please read up on raspberry pi GPIO pins as it will help you when you work on this project._ 
 
 ### gpio module on raspberry pi
 
@@ -78,18 +78,18 @@ We will use `BCM` conventions for GPIO pin numbers. When using pin numbers those
 
 I have a Chamberlain garage door opener, I was able to trace the button (from the wall) wires going into one terminal in your garage door opener. It looks like a thin looking wire as compared to regular electric wires in your house. Do not confuse the wires coming from the safety sensors hooked up to your garage door sides.
 
-![image-center]({{ site.url }}{{ site.baseurl }}/images/garage/garage-machine.jpg){: .align-center}
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/garage-machine.jpg){: .align-center}
 
 #### Connect wires from your garage opener sockets to relay module
 
 * Make sure you connect the negative to center terminal of the relay module and hot (positive) wire to left terminal on the relay module.
 * Concept is that when we connect these two wires, it completes the circuit which in turn trigger the garage open/close operation.
 
-![image-center]({{ site.url }}{{ site.baseurl }}/images/garage/relay.jpg){: .align-center}
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/relay.jpg){: .align-center}
 
 Connection to the raspberry pi
 
-![image-center]({{ site.url }}{{ site.baseurl }}/images/garage/relay-connection.jpg){: .align-center}
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/relay-connection.jpg){: .align-center}
 
 #### Connect relay to raspberry pi
 
@@ -109,11 +109,11 @@ IN1 pin is what will be used to trigger the changes. Other 2 wires is to provide
 
 Mechanical switch connections
 
-![image-center]({{ site.url }}{{ site.baseurl }}/images/garage/magnetic-switch.jpg){: .align-center}
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/magnetic-switch.jpg){: .align-center}
 
 Connection to the raspberry pi
 
-![image-center]({{ site.url }}{{ site.baseurl }}/images/garage/raspberrypi.jpg){: .align-center}
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/raspberrypi.jpg){: .align-center}
 
 #### Mechanical switch to the garage door
 
