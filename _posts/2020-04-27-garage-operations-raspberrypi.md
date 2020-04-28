@@ -1,6 +1,6 @@
 ---
 title: Garage door operations using Raspberry Pi
-excerpt: Different garage door operations using raspberry pi
+excerpt: Automating garage door operations using raspberry pi and other electronic parts
 categories:
     - automation
 tags: 
@@ -76,33 +76,32 @@ We will use `BCM` conventions for GPIO pin numbers. When using pin numbers those
 
 #### Find the manual button wire connection into your garage door
 
-I have a Chamberlain garage door opener, I was able to trace the button (from the wall) wires going into one terminal in your garage door opener. It looks like a thin looking wire as compared to regular electric wires in your house. Do not confuse the wires coming from the safety sensors hooked up to your garage door sides.
+I have a Chamberlain garage door opener, I was able to trace the button (from the wall) wires going into one terminal in your garage door opener. It looks like a thin looking wire as compared to regular electric wires in your house. Do not confuse the wires coming from the safety sensors hooked up to your garage door sides. In my case red was positive and white was negative.
 
 ![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/garage-machine.jpg){: .align-center}
 
 #### Connect wires from your garage opener sockets to relay module
 
-* Make sure you connect the negative to center terminal of the relay module and hot (positive) wire to left terminal on the relay module.
+* Make sure you connect the negative (black in pic) to center terminal of the relay module and hot (red in pic) wire to left terminal on the relay module.
 * Concept is that when we connect these two wires, it completes the circuit which in turn trigger the garage open/close operation.
 
 ![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/relay.jpg){: .align-center}
 
-Connection to the raspberry pi
+#### Connect relay to raspberry pi
+
+* Connect GND to pin 6 (other orange looking wire)
+* Connect VCC to pin 2 ie 5v supply (red wire in pic)
+* Connect IN2 to GPIO 4 (orange wire in pic)
+
+IN2 pin is what will be used to trigger the changes. Other 2 wires is to provide power (5v) to the relay.
 
 ![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/relay-connection.jpg){: .align-center}
 
-#### Connect relay to raspberry pi
+#### Connect magnetic switch to raspberry pi
 
-* Connect GND to pin 6
-* Connect VCC to pin 2 ie 5v supply
-* Connect IN1 to GPIO 4
-
-IN1 pin is what will be used to trigger the changes. Other 2 wires is to provide power (5v) to the relay.
-
-#### Connect mechanical switch to raspberry pi
-
-* Connect COM to pin 1 i.e. 3v supply
-* Connect NO to GPIO 2
+* Connect COM to ground on pin 6
+  * Black wire from the switch to orange looking wire 
+* Connect NO to GPIO 2 (red wire in pic)
   * This is pin is an pull-up type which means it outputs 3.3v
   * I am still trying to better understand this area.
   * I think you can use other pins as pull-up by configuration but i did not try it.
@@ -134,7 +133,7 @@ Complete code: [Github](https://github.com/gyandeeps/garage)
   * Configure this pin to call out function in both direction (high and low)
   * This library allows to read in one direction also.
 
-```ts
+```js
 const buttonTrigger = new Gpio(4, "out", undefined, {
     reconfigureDirection: false
 });
@@ -154,7 +153,7 @@ const doorSensor = new Gpio(2, "in", "both", {
 * That complete circuit allows the current to flow from inside the garage opener and that's why its start to work.
 * Sorry I am not an electrician so that's the best I can explain.
 
-```ts
+```js
 export const openCloseGarage = async () => {
     buttonTrigger.write(Gpio.LOW);
     await sleep();
@@ -180,6 +179,10 @@ If you use the garage module, I have setup then it should get you all started. F
 * This is my first project and i am still trying to figure a lot of things out.
 * Please provide feedback or anything which can be improved.
 * Any ideas on what else can be done.
+
+Overall picture (needs to find a good place for this but they work for now)
+
+![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/overall.jpg){: .align-center}
 
 ## References
 
