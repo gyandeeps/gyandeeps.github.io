@@ -49,7 +49,7 @@ export default function RefTest() {
 }
 ```
 
-Note: All these examples can be better coded but I am trying to demonstrate a scenario.{: .notice--info}
+_Note: All these examples can be better coded but I am trying to demonstrate a scenario._
 
 There are couple of issues in the code above:
 
@@ -58,7 +58,7 @@ There are couple of issues in the code above:
 
 ### Adding `cnt` as a dependency
 
-Note: Please do not add `cnt` as dependency as it will cause an infinite render. But if you want to try, do it on a page which you can kill easily.{: .notice--danger}
+**_Note: Please do not add `cnt` as dependency as it will cause an infinite render. But if you want to try, do it on a page which you can kill easily._**
 
 The main issue with this approach apart from the infinte render is that it's going to start calling the API even when the `cnt` changes. Which we don't want as we only want to call the API when `name` changes.
 
