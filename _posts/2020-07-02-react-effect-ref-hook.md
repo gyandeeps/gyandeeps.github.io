@@ -13,7 +13,7 @@ share: true
 
 # Problem
 
-Let's say you have to call an external API to submit a name change and every time the name changes you have to call the remove name API and then call the add name API. Alongside this you need to count how many times the API was called regardless of which API you called.
+Let's say you have to call an external API to submit a name change and API count number. Every time the name changes you have to call the remove name API and then call the add name API. Alongside this you need to count how many times the API was called regardless of which API you call and also send the count number to the API as well.
 
 ```js
 import React, { useEffect, useState } from "react";
@@ -29,11 +29,11 @@ export default function RefTest() {
 
   // HOOK
   useEffect(() => {
-    console.log(`API - Add name: ${name} cnt: ${cnt}`);
+    console.log(`API - Add name: ${name} cnt: ${cnt + 1}`);
     setCnt(cnt + 1);
 
     return () => {
-      console.log(`API - Remove name: ${name} cnt: ${cnt}`);
+      console.log(`API - Remove name: ${name} cnt: ${cnt + 1}`);
       setCnt(cnt + 1);
     };
   }, [name, setCnt]);
@@ -53,8 +53,8 @@ _Note: All these examples can be better coded but I am trying to demonstrate a s
 
 There are couple of issues in the code above:
 
-1. `ESLint` issue where We have not added `cnt` as a dependency.
-2. If you run the code the count is not correct because of closure it maintains an older value of `cnt` before it can increment.
+1. `ESLint` issue where we have not added `cnt` as a dependency.
+2. If you run the code the `cnt` is not correct because of closure it maintains an older value of `cnt` before it can increment.
 
 ### Adding `cnt` as a dependency
 
