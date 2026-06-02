@@ -15,15 +15,18 @@ Gemfile.lock
 # Node.js and NPM
 node_modules
 npm-debug.log*
-package-lock.json
 codekit-config.json
 
 # macOS
 .DS_Store
 
-# Jekyll generated files
+# Jekyll generated files (obsolete)
 .jekyll-cache
 .jekyll-metadata
 .sass-cache
 _asset_bundler_cache
 _site
+
+# Astro / Vite build outputs
+dist/
+.astro/

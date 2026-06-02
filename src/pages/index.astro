@@ -1,0 +1,90 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const allPosts = await getCollection('posts');
+
+const processedPosts = allPosts.map(post => {
+  const match = post.slug.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/);
+  const dateStr = match ? match[1] : '';
+  const urlSlug = match ? match[2] : post.slug;
+  const dateObj = dateStr ? new Date(dateStr) : new Date();
+  
+  return {
+    ...post,
+    urlSlug,
+    dateObj,
+    formattedDate: dateObj.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC'
+    })
+  };
+});
+
+const sortedPosts = processedPosts.sort((a, b) => b.dateObj.getTime() - a.dateObj.getTime());
+---
+
+<BaseLayout title="Home" description="Personal website of Gyandeep Singh, a Senior Software Engineer specializing in Web, JavaScript, and Node.js.">
+  
+  <section class="profile-section">
+    <img src="/assets/images/self.jpg" alt="Gyandeep Singh" class="profile-avatar" />
+    <div class="profile-info">
+      <h1>Gyandeep Singh</h1>
+      <p class="subtitle">Senior Software Engineer &amp; JavaScript Enthusiast</p>
+      <p class="profile-bio">
+        Web &amp; JavaScript Lover... JavaScript, Node.js, HTML, CSS, ESLint, MongoDB, robots, and #Friends lover. Semicolon user and 4-spaces proponent.
+      </p>
+      <div class="profile-meta-list">
+        <div class="profile-meta-item">
+          <i class="fas fa-map-marker-alt text-accent"></i>
+          <span>Kansas City</span>
+        </div>
+        <div class="profile-meta-item">
+          <i class="fab fa-github text-accent"></i>
+          <a href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer">gyandeeps</a>
+        </div>
+        <div class="profile-meta-item">
+          <i class="fab fa-twitter text-accent"></i>
+          <a href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer">gyandeeps</a>
+        </div>
+        <div class="profile-meta-item">
+          <i class="fab fa-stack-overflow text-accent"></i>
+          <a href="https://stackoverflow.com/users/2449389/gyandeep" target="_blank" rel="noopener noreferrer">Stack Overflow</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Recent Writing</h2>
+    <div class="card-grid">
+      {sortedPosts.map(post => (
+        <article class="post-card">
+          <div class="post-meta">
+            <time datetime={post.dateObj.toISOString().split('T')[0]}>{post.formattedDate}</time>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <span>&bull;</span>
+              <span>{post.data.tags[0]}</span>
+            )}
+          </div>
+          <h3>
+            <a href={`/${post.urlSlug}/`}>{post.data.title}</a>
+          </h3>
+          {post.data.excerpt && (
+            <p class="post-excerpt">{post.data.excerpt}</p>
+          )}
+          {post.data.tags && post.data.tags.length > 0 && (
+            <div class="tag-list">
+              {post.data.tags.map(tag => (
+                <span class="tag-badge">{tag}</span>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+
+</BaseLayout>

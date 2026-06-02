@@ -1,0 +1,68 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Gyandeep Singh's personal website and blog." } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>{title} - Gyandeep Singh</title>
+  <meta name="description" content={description} />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+  
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-70327992-1"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-70327992-1');
+  </script>
+</head>
+<body>
+  
+  <header class="masthead">
+    <div class="nav-container">
+      <a href="/" class="site-title">
+        <span>Gyandeep Singh</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/" class={Astro.url.pathname === '/' ? 'active' : ''}>Home</a></li>
+          <li><a href="/about/" class={Astro.url.pathname.startsWith('/about') ? 'active' : ''}>About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content-wrapper">
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-socials">
+      <a href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="https://stackoverflow.com/users/2449389/gyandeep" target="_blank" rel="noopener noreferrer" title="StackOverflow"><i class="fab fa-stack-overflow"></i></a>
+      <a href="mailto:gyandeeps@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+    <p>&copy; {new Date().getFullYear()} Gyandeep Singh. Built with Astro &amp; Vanilla CSS.</p>
+  </footer>
+
+</body>
+</html>
