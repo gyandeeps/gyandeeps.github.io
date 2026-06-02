@@ -1,0 +1,356 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AWS AppSync App with React and Apollo - Gyandeep Singh</title><meta name="description" content="Core pieces needed to build an application using AWS AppSync"><link rel="canonical" href="https://gyandeeps.com/aws-appsync-graphql/"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://gyandeeps.com/aws-appsync-graphql/"><meta property="og:title" content="AWS AppSync App with React and Apollo - Gyandeep Singh"><meta property="og:description" content="Core pieces needed to build an application using AWS AppSync"><meta property="og:site_name" content="Gyandeep Singh"><!-- Twitter --><meta name="twitter:card" content="summary"><meta name="twitter:url" content="https://gyandeeps.com/aws-appsync-graphql/"><meta name="twitter:title" content="AWS AppSync App with React and Apollo - Gyandeep Singh"><meta name="twitter:description" content="Core pieces needed to build an application using AWS AppSync"><meta name="twitter:site" content="@gyandeeps"><meta name="twitter:creator" content="@gyandeeps"><!-- Favicon --><link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico"><link rel="icon" type="image/png" href="/assets/images/favicon.png"><!-- FontAwesome for icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70327992-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-70327992-1');
+  </script><link rel="stylesheet" href="/_astro/BaseLayout.CeSbYlqh.css">
+<style>.back-link-container[data-astro-cid-yvbahnfj]{margin-bottom:2rem}.back-link[data-astro-cid-yvbahnfj]{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-secondary);font-size:.95rem;font-weight:500;transition:color .2s,transform .2s}.back-link[data-astro-cid-yvbahnfj]:hover{color:var(--color-accent);transform:translate(-4px)}
+</style></head> <body> <div class="scroll-progress" id="scrollProgress"></div> <div class="bg-glow-sphere bg-glow-sphere-1"></div> <div class="bg-glow-sphere bg-glow-sphere-2"></div> <header class="masthead animate-fade-in"> <div class="nav-container"> <a href="/" class="site-title"> <span>Gyandeep Singh</span> </a> <nav> <ul class="nav-links"> <li><a href="/" class>Home</a></li> <li><a href="/about/" class>About</a></li> </ul> </nav> </div> </header> <main class="content-wrapper">  <article class="animate-fade-in delay-1" data-astro-cid-yvbahnfj> <div class="back-link-container" data-astro-cid-yvbahnfj> <a href="/" class="back-link" data-astro-cid-yvbahnfj> <i class="fas fa-arrow-left" data-astro-cid-yvbahnfj></i> Back to Home
+</a> </div> <header class="article-header" data-astro-cid-yvbahnfj> <h1 class="article-title" data-astro-cid-yvbahnfj>AWS AppSync App with React and Apollo</h1> <div class="post-meta" data-astro-cid-yvbahnfj> <time datetime="2018-06-11" data-astro-cid-yvbahnfj>June 11, 2018</time> <span data-astro-cid-yvbahnfj>&bull;</span>
+          <span data-astro-cid-yvbahnfj>By gyandeeps</span> </div> <div class="tag-list" style="margin-top: 1rem;" data-astro-cid-yvbahnfj> <span class="tag-badge" data-astro-cid-yvbahnfj>javascript</span><span class="tag-badge" data-astro-cid-yvbahnfj>aws</span><span class="tag-badge" data-astro-cid-yvbahnfj>graphql</span><span class="tag-badge" data-astro-cid-yvbahnfj>appsync</span><span class="tag-badge" data-astro-cid-yvbahnfj>apollo</span> </div> </header> <div class="article-content animate-fade-in delay-2" data-astro-cid-yvbahnfj> <h1 id="introduction">Introduction</h1>
+<p>Walk through on how to build an application using AWS AppSync and what all things are needed on the front end side to get the whole system working. We will not be covering any basics as there are so many blog posts out there for that.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Basic understanding of:</p>
+<ul>
+<li>React</li>
+<li>React router</li>
+<li>AWS AppSync setup inside AWS console</li>
+<li>Different Apollo libraries</li>
+<li>GraphQL terminologies - Query, Mutations and Subscriptions</li>
+</ul>
+<h4 id="resources">Resources</h4>
+<ul>
+<li><a href="https://tylermcginnis.com/building-serverless-react-graphql-apps-with-aws-appsync">Building Serverless React GraphQL Applications with AWS AppSync</a> by <a href="https://twitter.com/dabit3">Nader Dabit</a></li>
+</ul>
+<p>If you don’t have basic understanding on any of these topics then I would highly recommended learning about that before proceeding ahead.</p>
+<h2 id="what-are-we-going-to-learn">What are we going to learn</h2>
+<ul>
+<li>Wire up AWS AppSync with all the config</li>
+<li>Authentication using AWS Cognito integration</li>
+<li>Manage mutation and resolvers</li>
+<li>Manage client state and server side state using apollo</li>
+</ul>
+<h2 id="motivations">Motivations</h2>
+<ul>
+<li>Not able to find any docs which explains how all these pieces work together.</li>
+<li>Not much info for advanced level stuff vs basic getting started.</li>
+<li>Spent so much time trying to figure out all these pieces and how they work together.</li>
+</ul>
+<h1 id="setup">Setup</h1>
+<h2 id="libraries">Libraries</h2>
+<ul>
+<li><a href="https://github.com/aws/aws-amplify"><code>aws-amplify</code>, <code>aws-amplify-react</code></a> - For Auth and other AWS calls</li>
+<li><a href="https://github.com/awslabs/aws-mobile-appsync-sdk-js"><code>aws-appsync</code>, <code>aws-appsync-react</code></a> - Wrapper around apollo client which manages communication to <code>graphql</code> api endpoint</li>
+<li><a href="https://github.com/apollographql/react-apollo"><code>react-apollo</code></a> - Apollo client side library for React framework</li>
+<li>Other apollo libraries like <code>apollo-link-http</code>, <code>apollo-link-state</code> and <code>apollo-cache-inmemory</code></li>
+</ul>
+<p><em>Note: Most of the blogs out their doesn’t cover all the aspects of an app and that why they only use sub-set of these libraries.</em></p>
+<h1 id="building-blocks">Building blocks</h1>
+<h2 id="basic-app-loading">Basic app loading</h2>
+<p>I assume you already have something loading just using <code>react</code> (create using <code>create-react-app</code>). We are going to build on top of that. So let’s say you have a div rendering with hello world for now.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> React </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> ReactDOM </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-dom"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { BrowserRouter } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-router-dom"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> App</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> React</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">Component</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    render</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>Hello World&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">ReactDOM.</span><span style="color:#B392F0">render</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#79B8FF">BrowserRouter</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#79B8FF">App</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#79B8FF">BrowserRouter</span><span style="color:#E1E4E8">>,</span></span>
+<span class="line"><span style="color:#E1E4E8">    document.</span><span style="color:#B392F0">getElementById</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"root"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<h2 id="add-aws-appsync-layer-to-connect-to-backend">Add AWS AppSync layer to connect to backend</h2>
+<p>We are going to use <code>aws-amplify</code> library provided by AWS AppSync team. This would take care of talking directly to AWS resources like <code>cognito</code> for Auth, analytics api, pubsub, API calls, etc. For more detailed info, please use the <a href="https://github.com/aws/aws-amplify/blob/master/README.md">readme</a>.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> React </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> ReactDOM </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-dom"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { BrowserRouter } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-router-dom"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Amplify, { Auth } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "aws-amplify"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Amplify.</span><span style="color:#B392F0">configure</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    Auth: {</span></span>
+<span class="line"><span style="color:#6A737D">        // REQUIRED - Amazon Cognito Identity Pool ID</span></span>
+<span class="line"><span style="color:#E1E4E8">        identityPoolId: </span><span style="color:#9ECBFF">"XX-XXXX-X:XXXXXXXX-XXXX-1234-abcd-1234567890ab"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6A737D">        // REQUIRED - Amazon Cognito Region</span></span>
+<span class="line"><span style="color:#E1E4E8">        region: </span><span style="color:#9ECBFF">"XX-XXXX-X"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6A737D">        // OPTIONAL - Amazon Cognito User Pool ID</span></span>
+<span class="line"><span style="color:#E1E4E8">        userPoolId: </span><span style="color:#9ECBFF">"XX-XXXX-X_abcd1234"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6A737D">        // OPTIONAL - Amazon Cognito Web Client ID</span></span>
+<span class="line"><span style="color:#E1E4E8">        userPoolWebClientId: </span><span style="color:#9ECBFF">"XX-XXXX-X_abcd1234"</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> App</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> React</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">Component</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    render</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>Hello World&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">ReactDOM.</span><span style="color:#B392F0">render</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#79B8FF">BrowserRouter</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#79B8FF">App</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#79B8FF">BrowserRouter</span><span style="color:#E1E4E8">>,</span></span>
+<span class="line"><span style="color:#E1E4E8">    document.</span><span style="color:#B392F0">getElementById</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"root"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<ul>
+<li>Once you have configured <code>Amplify</code> then in any other module you can import a particular artifact and use it.
+<ul>
+<li>Docs - <a href="https://aws.github.io/aws-amplify/media/developer_guide">https://aws.github.io/aws-amplify/media/developer_guide</a></li>
+</ul>
+</li>
+<li>In this case we are only using Auth so we have configured that portion only. But for API or any other modules, you can add a block and its configurations.</li>
+<li>As per the above setup you should be good to go and use <code>Auth</code> module anywhere in your app.</li>
+</ul>
+<h2 id="add-cache-and-state-management">Add cache and state management</h2>
+<p>We are going to use <code>aws-appsync</code> and <code>aws-appsync-react</code> libraries to create local cache where the data from graphql and your local state will be saved. The concept is more like <code>Redux</code> but here behind the scene <code>aws-appsync</code> uses Apollo cache and its libraries to do the heavy lifting.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> React </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> ReactDOM </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-dom"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { BrowserRouter } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-router-dom"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Amplify, { Auth } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "aws-amplify"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { ApolloProvider } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-apollo"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { ApolloLink } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "apollo-link"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { InMemoryCache } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "apollo-cache-inmemory"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> AWSAppSyncClient, { createAppSyncLink } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "aws-appsync"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { withClientState } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "apollo-link-state"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Amplify.</span><span style="color:#B392F0">configure</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    Auth: {</span></span>
+<span class="line"><span style="color:#6A737D">        // REQUIRED - Amazon Cognito Identity Pool ID</span></span>
+<span class="line"><span style="color:#E1E4E8">        identityPoolId: </span><span style="color:#9ECBFF">"XX-XXXX-X:XXXXXXXX-XXXX-1234-abcd-1234567890ab"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6A737D">        // REQUIRED - Amazon Cognito Region</span></span>
+<span class="line"><span style="color:#E1E4E8">        region: </span><span style="color:#9ECBFF">"XX-XXXX-X"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6A737D">        // OPTIONAL - Amazon Cognito User Pool ID</span></span>
+<span class="line"><span style="color:#E1E4E8">        userPoolId: </span><span style="color:#9ECBFF">"XX-XXXX-X_abcd1234"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6A737D">        // OPTIONAL - Amazon Cognito Web Client ID</span></span>
+<span class="line"><span style="color:#E1E4E8">        userPoolWebClientId: </span><span style="color:#9ECBFF">"XX-XXXX-X_abcd1234"</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> cache</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> InMemoryCache</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> nextTodoId </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> stateLink</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> withClientState</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">    cache,</span></span>
+<span class="line"><span style="color:#E1E4E8">    defaults: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        todos: []</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">    resolvers: {</span></span>
+<span class="line"><span style="color:#E1E4E8">        Mutation: {</span></span>
+<span class="line"><span style="color:#B392F0">            addTodo</span><span style="color:#E1E4E8">: (</span><span style="color:#FFAB70">_</span><span style="color:#E1E4E8">, { </span><span style="color:#FFAB70">text</span><span style="color:#E1E4E8"> }, { </span><span style="color:#FFAB70">cache</span><span style="color:#E1E4E8"> }) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">                const</span><span style="color:#79B8FF"> query</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> gql</span><span style="color:#9ECBFF">`</span></span>
+<span class="line"><span style="color:#9ECBFF">                    query GetTodos {</span></span>
+<span class="line"><span style="color:#9ECBFF">                        todos @client {</span></span>
+<span class="line"><span style="color:#9ECBFF">                            id</span></span>
+<span class="line"><span style="color:#9ECBFF">                            text</span></span>
+<span class="line"><span style="color:#9ECBFF">                            completed</span></span>
+<span class="line"><span style="color:#9ECBFF">                        }</span></span>
+<span class="line"><span style="color:#9ECBFF">                    }</span></span>
+<span class="line"><span style="color:#9ECBFF">                `</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">                const</span><span style="color:#79B8FF"> previous</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> cache.</span><span style="color:#B392F0">readQuery</span><span style="color:#E1E4E8">({ query });</span></span>
+<span class="line"><span style="color:#F97583">                const</span><span style="color:#79B8FF"> newTodo</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">                    id: nextTodoId</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">                    text,</span></span>
+<span class="line"><span style="color:#E1E4E8">                    completed: </span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">                    __typename: </span><span style="color:#9ECBFF">"TodoItem"</span></span>
+<span class="line"><span style="color:#E1E4E8">                };</span></span>
+<span class="line"><span style="color:#F97583">                const</span><span style="color:#79B8FF"> data</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">                    todos: previous.todos.</span><span style="color:#B392F0">concat</span><span style="color:#E1E4E8">([newTodo])</span></span>
+<span class="line"><span style="color:#E1E4E8">                };</span></span>
+<span class="line"><span style="color:#E1E4E8">                cache.</span><span style="color:#B392F0">writeData</span><span style="color:#E1E4E8">({ data });</span></span>
+<span class="line"><span style="color:#F97583">                return</span><span style="color:#E1E4E8"> newTodo;</span></span>
+<span class="line"><span style="color:#E1E4E8">            }</span></span>
+<span class="line"><span style="color:#E1E4E8">        }</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> authConfig</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    type: appSyncAtrributes.authenticationType,</span></span>
+<span class="line"><span style="color:#B392F0">    jwtToken</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#E1E4E8">        (</span><span style="color:#F97583">await</span><span style="color:#E1E4E8"> Auth.</span><span style="color:#B392F0">currentSession</span><span style="color:#E1E4E8">()).</span><span style="color:#B392F0">getAccessToken</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">getJwtToken</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> client</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> AWSAppSyncClient</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#E1E4E8">        disableOffline: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        url: appSyncAtrributes.graphqlEndpoint,</span></span>
+<span class="line"><span style="color:#E1E4E8">        region: appSyncAtrributes.region,</span></span>
+<span class="line"><span style="color:#E1E4E8">        auth: authConfig,</span></span>
+<span class="line"><span style="color:#B392F0">        complexObjectsCredentials</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> Auth.</span><span style="color:#B392F0">currentCredentials</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#E1E4E8">        cache,</span></span>
+<span class="line"><span style="color:#E1E4E8">        link: ApolloLink.</span><span style="color:#B392F0">from</span><span style="color:#E1E4E8">([</span></span>
+<span class="line"><span style="color:#E1E4E8">            stateLink,</span></span>
+<span class="line"><span style="color:#B392F0">            createAppSyncLink</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">                url: appSyncAtrributes.graphqlEndpoint,</span></span>
+<span class="line"><span style="color:#E1E4E8">                region: appSyncAtrributes.region,</span></span>
+<span class="line"><span style="color:#E1E4E8">                auth: authConfig,</span></span>
+<span class="line"><span style="color:#B392F0">                complexObjectsCredentials</span><span style="color:#E1E4E8">: () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> Auth.</span><span style="color:#B392F0">currentCredentials</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#E1E4E8">            })</span></span>
+<span class="line"><span style="color:#E1E4E8">        ])</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> App</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> React</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">Component</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    render</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>Hello World&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">ReactDOM.</span><span style="color:#B392F0">render</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#79B8FF">BrowserRouter</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#79B8FF">ApolloProvider</span><span style="color:#B392F0"> client</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{client}></span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;</span><span style="color:#79B8FF">App</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;/</span><span style="color:#79B8FF">ApolloProvider</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#79B8FF">BrowserRouter</span><span style="color:#E1E4E8">>,</span></span>
+<span class="line"><span style="color:#E1E4E8">    document.</span><span style="color:#B392F0">getElementById</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"root"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span></code></pre>
+<p>A lot of stuff happened in the code above. Lets discuss the important pieces here.</p>
+<h4 id="cachestate">Cache/State</h4>
+<p>Based on all the articles out their, when you use <code>AWSAppSyncClient</code> directly by providing the first parameter you automagically start maintaining local cache of your remote calls. i.e. when you fetch data from your graphql api then its stored inside cache. But we want to maintain some client side local state as well, which is not coming from the grapghql api. We do that using <code>apollo-link-state</code>.</p>
+<p>Most important pieces to understand here are:</p>
+<ul>
+<li><code>createAppSyncLink</code> - Default state setup done by the <code>aws-appsync</code> library.</li>
+<li><code>withClientState</code> - we create the local state maintained by the app on the front-end. In this case it’s the todo state.</li>
+<li><code>ApolloLink.from</code> - Using this we combine the output from above 2 commands to get a single entry point into the state. Think of this as merging the remote and local state into a single state.</li>
+<li><code>ApolloProvider</code> -  It’s like <code>react-redux</code> provider which exposes the client downstream into other components.</li>
+</ul>
+<h2 id="using-state-in-component">Using state in component</h2>
+<p>Here I am just going to focus on the <code>App</code> component as all the other code around it remains the same. Ideally you should create the <code>App</code> component as a separate file and import it.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#79B8FF"> *</span><span style="color:#F97583"> as</span><span style="color:#E1E4E8"> React </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { Mutation, Query } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-apollo"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> gql </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "graphql-tag"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> GET_TODOS</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> gql</span><span style="color:#9ECBFF">`</span></span>
+<span class="line"><span style="color:#9ECBFF">    {</span></span>
+<span class="line"><span style="color:#9ECBFF">        todos @client {</span></span>
+<span class="line"><span style="color:#9ECBFF">            id</span></span>
+<span class="line"><span style="color:#9ECBFF">            completed</span></span>
+<span class="line"><span style="color:#9ECBFF">            text</span></span>
+<span class="line"><span style="color:#9ECBFF">        }</span></span>
+<span class="line"><span style="color:#9ECBFF">    }</span></span>
+<span class="line"><span style="color:#9ECBFF">`</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> GET_ORDERS</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> gql</span><span style="color:#9ECBFF">`</span></span>
+<span class="line"><span style="color:#9ECBFF">    {</span></span>
+<span class="line"><span style="color:#9ECBFF">        listOrders {</span></span>
+<span class="line"><span style="color:#9ECBFF">            items {</span></span>
+<span class="line"><span style="color:#9ECBFF">                id</span></span>
+<span class="line"><span style="color:#9ECBFF">                name</span></span>
+<span class="line"><span style="color:#9ECBFF">            }</span></span>
+<span class="line"><span style="color:#9ECBFF">        }</span></span>
+<span class="line"><span style="color:#9ECBFF">    }</span></span>
+<span class="line"><span style="color:#9ECBFF">`</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> ADD_TODO</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> gql</span><span style="color:#9ECBFF">`</span></span>
+<span class="line"><span style="color:#9ECBFF">    mutation addTodo($text: String!) {</span></span>
+<span class="line"><span style="color:#9ECBFF">        addTodo(text: $text) @client {</span></span>
+<span class="line"><span style="color:#9ECBFF">            id</span></span>
+<span class="line"><span style="color:#9ECBFF">        }</span></span>
+<span class="line"><span style="color:#9ECBFF">    }</span></span>
+<span class="line"><span style="color:#9ECBFF">`</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> App</span><span style="color:#F97583"> extends</span><span style="color:#B392F0"> React</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">Component</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    render</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;</span><span style="color:#79B8FF">Query</span><span style="color:#B392F0"> query</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">GET_ORDERS</span><span style="color:#E1E4E8">}></span></span>
+<span class="line"><span style="color:#E1E4E8">                {({ </span><span style="color:#FFAB70">data</span><span style="color:#E1E4E8"> }) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">                    &#x3C;</span><span style="color:#79B8FF">Mutation</span><span style="color:#B392F0"> mutation</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">ADD_TODO</span><span style="color:#E1E4E8">}></span></span>
+<span class="line"><span style="color:#E1E4E8">                        {(</span><span style="color:#FFAB70">addTodo</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">                            &#x3C;></span></span>
+<span class="line"><span style="color:#E1E4E8">                                &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>{</span><span style="color:#79B8FF">JSON</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">stringify</span><span style="color:#E1E4E8">(data)}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                                &#x3C;</span><span style="color:#85E89D">button</span></span>
+<span class="line"><span style="color:#B392F0">                                    onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{() </span><span style="color:#F97583">=></span></span>
+<span class="line"><span style="color:#B392F0">                                        addTodo</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#E1E4E8">                                            variables: { text: </span><span style="color:#9ECBFF">"gyandeep"</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#E1E4E8">                                        })</span></span>
+<span class="line"><span style="color:#E1E4E8">                                    }</span></span>
+<span class="line"><span style="color:#E1E4E8">                                ></span></span>
+<span class="line"><span style="color:#E1E4E8">                                    add</span></span>
+<span class="line"><span style="color:#E1E4E8">                                &#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                            &#x3C;/></span></span>
+<span class="line"><span style="color:#E1E4E8">                        )}</span></span>
+<span class="line"><span style="color:#E1E4E8">                    &#x3C;/</span><span style="color:#79B8FF">Mutation</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">                )}</span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;/</span><span style="color:#79B8FF">Query</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">        );</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre>
+<p>Most important pieces to understand here are:</p>
+<ul>
+<li><code>Query</code> and <code>Mutation</code> - Components for graphql stuff.</li>
+<li><code>onClick</code> <code>addTodo</code> call - Add todo calls a mutation on the client side using the directive <code>@client</code> inside the mutation definition. This tells the underlying apollo infrastructure that this graphql command is for local changes only.
+<ul>
+<li>In the main file in <code>stateLink</code> using <code>withClientState</code>, we defined the mutation resolver for add todo that basically writes to the local cache and then the components refreshes to read the values.</li>
+<li>Think of this as <strong><code>redux</code> actions and reducers</strong>.</li>
+</ul>
+</li>
+<li><code>GET_ORDERS</code> - This graphql query doesn’t use the <code>@client</code> so it hit’s the graphql interface over the network and then when data comes back it updates the cache automagically.</li>
+</ul>
+<h2 id="authentication">Authentication</h2>
+<p>After all the setup done, if you want your route in this case <code>App</code> to be authenticated before procedding then you can use the helper to achieve that.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { withAuthenticator } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "aws-amplify-react"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// App class definition here as seen above</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> default</span><span style="color:#B392F0"> withAuthenticator</span><span style="color:#E1E4E8">(App);</span></span></code></pre>
+<p>So before this components gets rendered it will route to login page. For more details on this I would recommend using the <a href="https://aws.github.io/aws-amplify/media/authentication_guide">guide here</a>. It explains everything very nicely.</p>
+<h1 id="conclusion">Conclusion</h1>
+<ul>
+<li>You should not use <code>Redux</code> as it doesn’t work nicely with apollo cache. I know its hard but once you move over to apollo you will be fine.
+<ul>
+<li>It took me some time to understand.</li>
+</ul>
+</li>
+<li>Think of your resolvers as redux reducers, I would recommend writing them separately.</li>
+<li>Think of all <code>gql</code> queries as actions, I would recommend writing them separately as well.</li>
+</ul>
+<h2 id="notes">Notes</h2>
+<ul>
+<li>Wrote this because I struggled with all these pieces (different libraries) a lot and complained a lot to people and twitter.</li>
+<li>I am just 2-3 weeks old in AppSync world, so this post is like a brain dump.</li>
+</ul> </div> <!-- Disqus Comments Thread --> <div class="animate-fade-in delay-3" data-astro-cid-yvbahnfj> <div class="comments-container"> <div id="disqus_thread"></div> </div> <script>(function(){const canonicalUrl = "https://gyandeeps.com/aws-appsync-graphql/";
+const identifier = "/aws-appsync-graphql";
+
+  var disqus_config = function () {
+    this.page.url = canonicalUrl;
+    this.page.identifier = identifier;
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://gyandeeps.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+})();</script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> </div> </article>  </main> <footer class="site-footer"> <div class="footer-socials"> <a href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a> <a href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="mailto:gyandeeps@gmail.com" title="Email"><i class="fas fa-envelope"></i></a> </div> <p>&copy; 2026 Gyandeep Singh. Built with Astro &amp; Vanilla CSS.</p> </footer> <script>
+    // Scroll Progress Indicator
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const progressEl = document.getElementById('scrollProgress');
+      if (progressEl) {
+        progressEl.style.width = scrolled + '%';
+      }
+    });
+
+    // Mouse tracking for cards
+    function setupCardGlows() {
+      const cards = document.querySelectorAll('.post-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', setupCardGlows);
+  </script> </body> </html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Understanding state changes inside Alexa skill - Gyandeep Singh</title><meta name="description" content="Understand how the state changes and flow of control works in alexa skill"><link rel="canonical" href="https://gyandeeps.com/alexa-skill-state-basics/"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://gyandeeps.com/alexa-skill-state-basics/"><meta property="og:title" content="Understanding state changes inside Alexa skill - Gyandeep Singh"><meta property="og:description" content="Understand how the state changes and flow of control works in alexa skill"><meta property="og:site_name" content="Gyandeep Singh"><!-- Twitter --><meta name="twitter:card" content="summary"><meta name="twitter:url" content="https://gyandeeps.com/alexa-skill-state-basics/"><meta name="twitter:title" content="Understanding state changes inside Alexa skill - Gyandeep Singh"><meta name="twitter:description" content="Understand how the state changes and flow of control works in alexa skill"><meta name="twitter:site" content="@gyandeeps"><meta name="twitter:creator" content="@gyandeeps"><!-- Favicon --><link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico"><link rel="icon" type="image/png" href="/assets/images/favicon.png"><!-- FontAwesome for icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70327992-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-70327992-1');
+  </script><link rel="stylesheet" href="/_astro/BaseLayout.CeSbYlqh.css">
+<style>.back-link-container[data-astro-cid-yvbahnfj]{margin-bottom:2rem}.back-link[data-astro-cid-yvbahnfj]{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-secondary);font-size:.95rem;font-weight:500;transition:color .2s,transform .2s}.back-link[data-astro-cid-yvbahnfj]:hover{color:var(--color-accent);transform:translate(-4px)}
+</style></head> <body> <div class="scroll-progress" id="scrollProgress"></div> <div class="bg-glow-sphere bg-glow-sphere-1"></div> <div class="bg-glow-sphere bg-glow-sphere-2"></div> <header class="masthead animate-fade-in"> <div class="nav-container"> <a href="/" class="site-title"> <span>Gyandeep Singh</span> </a> <nav> <ul class="nav-links"> <li><a href="/" class>Home</a></li> <li><a href="/about/" class>About</a></li> </ul> </nav> </div> </header> <main class="content-wrapper">  <article class="animate-fade-in delay-1" data-astro-cid-yvbahnfj> <div class="back-link-container" data-astro-cid-yvbahnfj> <a href="/" class="back-link" data-astro-cid-yvbahnfj> <i class="fas fa-arrow-left" data-astro-cid-yvbahnfj></i> Back to Home
+</a> </div> <header class="article-header" data-astro-cid-yvbahnfj> <h1 class="article-title" data-astro-cid-yvbahnfj>Understanding state changes inside Alexa skill</h1> <div class="post-meta" data-astro-cid-yvbahnfj> <time datetime="2017-07-22" data-astro-cid-yvbahnfj>July 22, 2017</time> <span data-astro-cid-yvbahnfj>&bull;</span>
+          <span data-astro-cid-yvbahnfj>By gyandeeps</span> </div> <div class="tag-list" style="margin-top: 1rem;" data-astro-cid-yvbahnfj> <span class="tag-badge" data-astro-cid-yvbahnfj>javascript</span><span class="tag-badge" data-astro-cid-yvbahnfj>alexa</span><span class="tag-badge" data-astro-cid-yvbahnfj>alexa-skill</span><span class="tag-badge" data-astro-cid-yvbahnfj>state</span> </div> </header> <div class="article-content animate-fade-in delay-2" data-astro-cid-yvbahnfj> <h2 id="introduction">Introduction</h2>
+<p>I will be explaining how the execution flow of an alexa program works based on state changes inside a single user session. All my examples will be written in JavaScript as you can build skills using NodeJS. In this blog, I expect the readers to have basic understanding of building an alexa skill. We will be using <a href="https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs"><code>alexa-sdk</code></a> NodeJS package for the example code.</p>
+<p>It’s not necessary to use states as you can do a lot of stuff by just using the default handler. But separate handlers are very beneficial when you want to break down you skill into different areas. I would recommend using these for medium to advance level alexa skills.</p>
+<h2 id="basic---skill-registration">Basic - skill registration</h2>
+<p>This is how your basic setup looks like for a lambda function used by the alexa skill. I am showing this code because this is where you register all your different handlers.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#79B8FF">exports</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">handler</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">context</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">callback</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> alexa</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Alexa.</span><span style="color:#B392F0">handler</span><span style="color:#E1E4E8">(event, context);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    alexa.appId </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> process.env.</span><span style="color:#79B8FF">APP_ID</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">// alexa skill id</span></span>
+<span class="line"><span style="color:#E1E4E8">    alexa.</span><span style="color:#B392F0">registerHandlers</span><span style="color:#E1E4E8">(newSessionHandler, startGameHandlers, askQuestionHandlers); </span><span style="color:#6A737D">// important part where we are going to focus.</span></span>
+<span class="line"><span style="color:#E1E4E8">    alexa.</span><span style="color:#B392F0">execute</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<h2 id="state-handlers">State handlers</h2>
+<p>The important part in the above basic setup example is the <code>registerHandlers</code> function call. Let’s discuss what the different arguments to that function mean.</p>
+<h3 id="newsessionhandler"><code>newSessionHandler</code></h3>
+<p>This is a required handler needed by the alexa skill. This handler is called when the user uses the skill. This contains introduction level information and it sets the next state the skill is going to move to.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> newSessionHandler</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    LaunchRequest</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.handler.state </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "ASKMODE"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">emit</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">":ask"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"Welcome to Custom Alexa skill, are you ready to begin?"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<p>it will welcome the user and maybe ask him if he is ready to perform certain actions. The important part here is that we set the <code>state</code> to <code>ASKMODE</code>. What it’s going to do is that the next time call comes back to the lambda function in the same session then it will execute the handlers inside <code>startGameHandlers</code>.</p>
+<h3 id="startgamehandlers"><code>startGameHandlers</code></h3>
+<p>This is the extra handler we have added which depends upon a separate state. The core is the same as all the handlers but the only difference is that this handlers is attached to a particular <code>ASKMODE</code> state. So if state of session is <code>ASKMODE</code> then the call will be handled by all the handlers defined inside this function.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> startGameHandlers</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Alexa.</span><span style="color:#B392F0">CreateStateHandler</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"ASKMODE"</span><span style="color:#E1E4E8">, {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "AMAZON.YesIntent"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">emitWithState</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"AskQuestionIntent"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#9ECBFF">    "AskQuestionIntent"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.handler.state </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "ANSWERMODE"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">        const</span><span style="color:#79B8FF"> randomQuestion</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> getRandomQuestion</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.attributes.questions[randomQuestion.id] </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">;  </span><span style="color:#6A737D">// maintain questions within the same session</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.attributes.questionId </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> randomQuestion.id;</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">emit</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">":ask"</span><span style="color:#E1E4E8">, randomQuestion.display);</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#9ECBFF">    "FinishIntent"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">emit</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">":tell"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"All your answers are correct. Thanks for playing"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<p>Again, if you watch here the state gets changed to the <code>ANSWERMODE</code> which is going to handle the answer to the question asked here.</p>
+<h3 id="askquestionhandlers"><code>askQuestionHandlers</code></h3>
+<p>This is the extra handler we have added which depends upon a separate state.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> askQuestionHandlers</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> Alexa.</span><span style="color:#B392F0">CreateStateHandler</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"ANSWERMODE"</span><span style="color:#E1E4E8">, {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "AMAZON.YesIntent"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.handler.state </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "ASKMODE"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.attributes.questions[</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.attributes.questionId] </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">// Yes</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">emitWithState</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">allThreeQuestionsAnswered</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.attributes.questions) </span><span style="color:#F97583">?</span><span style="color:#9ECBFF"> "FinishIntent"</span><span style="color:#F97583"> :</span><span style="color:#9ECBFF"> "AskQuestionIntent"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#9ECBFF">    "AMAZON.NoIntent"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.handler.state </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "ASKMODE"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.attributes.questions[</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.attributes.questionId] </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">// No</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">emitWithState</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">allThreeQuestionsAnswered</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.attributes.questions) </span><span style="color:#F97583">?</span><span style="color:#9ECBFF"> "FinishIntent"</span><span style="color:#F97583"> :</span><span style="color:#9ECBFF"> "AskQuestionIntent"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<p>In here it maps the answers for the questions asked from <code>startGameHandlers</code>. Here it transfers the <code>state</code> back to <code>ASKMODE</code> so that the next interaction will be handled by <code>startGameHandlers</code>.</p>
+<h2 id="conclusion">Conclusion</h2>
+<ul>
+<li><code>state</code> helps you switch between different handlers.</li>
+<li>State is maintained for each user session and not across sessions.</li>
+<li>State dectates which handlers is active at that point. Then all the calls to the lambda will be directed towards that handler.</li>
+<li>It’s easy to build different blocks of the skill and then make them work cohesively.</li>
+</ul>
+<p><em>Note: I am still learning so if you find something wrong please leave a comment.</em></p> </div> <!-- Disqus Comments Thread --> <div class="animate-fade-in delay-3" data-astro-cid-yvbahnfj> <div class="comments-container"> <div id="disqus_thread"></div> </div> <script>(function(){const canonicalUrl = "https://gyandeeps.com/alexa-skill-state-basics/";
+const identifier = "/alexa-skill-state-basics";
+
+  var disqus_config = function () {
+    this.page.url = canonicalUrl;
+    this.page.identifier = identifier;
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://gyandeeps.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+})();</script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> </div> </article>  </main> <footer class="site-footer"> <div class="footer-socials"> <a href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a> <a href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="mailto:gyandeeps@gmail.com" title="Email"><i class="fas fa-envelope"></i></a> </div> <p>&copy; 2026 Gyandeep Singh. Built with Astro &amp; Vanilla CSS.</p> </footer> <script>
+    // Scroll Progress Indicator
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const progressEl = document.getElementById('scrollProgress');
+      if (progressEl) {
+        progressEl.style.width = scrolled + '%';
+      }
+    });
+
+    // Mouse tracking for cards
+    function setupCardGlows() {
+      const cards = document.querySelectorAll('.post-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', setupCardGlows);
+  </script> </body> </html>

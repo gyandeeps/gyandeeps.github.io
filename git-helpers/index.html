@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Git helpers - Simplify your git workflow - Gyandeep Singh</title><meta name="description" content="Streamline your git workflows"><link rel="canonical" href="https://gyandeeps.com/git-helpers/"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://gyandeeps.com/git-helpers/"><meta property="og:title" content="Git helpers - Simplify your git workflow - Gyandeep Singh"><meta property="og:description" content="Streamline your git workflows"><meta property="og:site_name" content="Gyandeep Singh"><!-- Twitter --><meta name="twitter:card" content="summary"><meta name="twitter:url" content="https://gyandeeps.com/git-helpers/"><meta name="twitter:title" content="Git helpers - Simplify your git workflow - Gyandeep Singh"><meta name="twitter:description" content="Streamline your git workflows"><meta name="twitter:site" content="@gyandeeps"><meta name="twitter:creator" content="@gyandeeps"><!-- Favicon --><link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico"><link rel="icon" type="image/png" href="/assets/images/favicon.png"><!-- FontAwesome for icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70327992-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-70327992-1');
+  </script><link rel="stylesheet" href="/_astro/BaseLayout.CeSbYlqh.css">
+<style>.back-link-container[data-astro-cid-yvbahnfj]{margin-bottom:2rem}.back-link[data-astro-cid-yvbahnfj]{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-secondary);font-size:.95rem;font-weight:500;transition:color .2s,transform .2s}.back-link[data-astro-cid-yvbahnfj]:hover{color:var(--color-accent);transform:translate(-4px)}
+</style></head> <body> <div class="scroll-progress" id="scrollProgress"></div> <div class="bg-glow-sphere bg-glow-sphere-1"></div> <div class="bg-glow-sphere bg-glow-sphere-2"></div> <header class="masthead animate-fade-in"> <div class="nav-container"> <a href="/" class="site-title"> <span>Gyandeep Singh</span> </a> <nav> <ul class="nav-links"> <li><a href="/" class>Home</a></li> <li><a href="/about/" class>About</a></li> </ul> </nav> </div> </header> <main class="content-wrapper">  <article class="animate-fade-in delay-1" data-astro-cid-yvbahnfj> <div class="back-link-container" data-astro-cid-yvbahnfj> <a href="/" class="back-link" data-astro-cid-yvbahnfj> <i class="fas fa-arrow-left" data-astro-cid-yvbahnfj></i> Back to Home
+</a> </div> <header class="article-header" data-astro-cid-yvbahnfj> <h1 class="article-title" data-astro-cid-yvbahnfj>Git helpers - Simplify your git workflow</h1> <div class="post-meta" data-astro-cid-yvbahnfj> <time datetime="2015-11-21" data-astro-cid-yvbahnfj>November 21, 2015</time> <span data-astro-cid-yvbahnfj>&bull;</span>
+          <span data-astro-cid-yvbahnfj>By gyandeeps</span> </div> <div class="tag-list" style="margin-top: 1rem;" data-astro-cid-yvbahnfj> <span class="tag-badge" data-astro-cid-yvbahnfj>javascript</span><span class="tag-badge" data-astro-cid-yvbahnfj>git</span><span class="tag-badge" data-astro-cid-yvbahnfj>github</span><span class="tag-badge" data-astro-cid-yvbahnfj>nodejs</span><span class="tag-badge" data-astro-cid-yvbahnfj>open source</span> </div> </header> <div class="article-content animate-fade-in delay-2" data-astro-cid-yvbahnfj> <p>Being a git lover, I got tired of typing same commands over and over again. This motivated me to build some alias for my git workflow I use every day. Most of the alias was inherited from <a href="https://gist.github.com/nzakas/c6c98856a5eac76f06e3#file-alias-sh">Nicholas C. Zakas’s gist</a>. I took that a step further by creating more alias which I use every time I contribute to open source projects like <a href="http://eslint.org/">Eslint</a>.</p>
+<h2 id="commands">Commands</h2>
+<h3 id="work-on-an-issue">Work on an issue</h3>
+<p>When you plan to work on an issue on an open source project, you will want to create a new branch on your project and then start work on it. For that you have to go through couple of steps. To stream line that process now on top of your project you can just run the command:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">ws</span><span style="color:#79B8FF"> 34</span></span></code></pre>
+<p>This command will update the master branch with the updates from the remote and then create a new branch on it with name <code>issue34</code>.</p>
+<h3 id="remove-a-branch-after-work-is-done">Remove a branch after work is done</h3>
+<p>Once you are done with your work on the branch. Then you can simply run the below command to delete the branch from local and remote git.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">wd</span><span style="color:#79B8FF"> 34</span></span></code></pre>
+<h3 id="update-your-branch-all-changes-commited-with-master">Update your branch (all changes commited) with master</h3>
+<p>let’s say after working on your branch, you want to update your branch with latest content from the master. This is important in scenarios where you want to rebase your branch with latest content from <code>master</code> branch.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">update</span></span></code></pre>
+<h3 id="update-your-branch-uncommited-changes-with-master">Update your branch (uncommited changes) with master</h3>
+<p>let’s say after working on your branch, you want to update your branch with latest content from the master. But at this time you have not commited your changes. Using <code>updateD</code>, it will stash your changes then update your branch from master and then pick the changes from stash and apply it back on the current branch.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">updateD</span></span></code></pre>
+<h3 id="squash-your-commits">Squash your commits</h3>
+<p>I always prefer to keep my changes history clean by squashing my commits. Once you are working on a branch and you want to squash your commits, simple run the following command to rebase. You can pass in a parameter of how many commits you want to include in your rebase from the HEAD. By default it will run rebase on last 2 commits.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">rebase</span><span style="color:#79B8FF"> 4</span><span style="color:#6A737D"> # This will rebase on last 4 commits, default is 2</span></span></code></pre>
+<h3 id="push-your-changes-to-remote">Push your changes to remote</h3>
+<p>After you have finished your work, you want to push your changes to remote. Here mostly you will be doing a regular <code>push</code> but if you have done some rebases on your branch then your only option is to <code>force push</code>. We use <code>--force-with-lease</code> flag for force ppush just to be little more safe.</p>
+<p>Regular push:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">push</span><span style="color:#6A737D"> # This will push your branch changes but will not push on master</span></span></code></pre>
+<p>Force push:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">fpush</span><span style="color:#6A737D"> # This will push your branch changes but will not push on master</span></span></code></pre>
+<p>Both commands will not allow you to push it to master because it considered a good practice to always branch off your changes and then merge it to master using a PR. This is completely my view.</p>
+<h3 id="pull-changes-from-origin">Pull changes from origin</h3>
+<p>Running this command will pull thhe changes from upstream and merge them into thhe current branch. It uses <code>--rebase --prune</code> flags.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">pull</span></span></code></pre>
+<h3 id="update-fork">Update fork</h3>
+<p>Quick way to update your fork from the upstream repo. It will go to the master branch, get thhe upstream master, merge that upstream master into local master and then push thhe master to origin master. Its a complete cycle.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">uf</span></span></code></pre>
+<p>It expects you to setup <code>upstream</code> before running this command.</p>
+<h3 id="quick-commit">Quick commit</h3>
+<p>Quick way to commit your changes by supplying the commit message. Itt will add the currently changed files using the <code>-a</code> flag.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">c</span><span style="color:#9ECBFF"> "&#x3C;message>"</span></span></code></pre>
+<h3 id="log-commits">Log commits</h3>
+<p>Quick and easy way to view your commit log in oneline. Its formatted in a way where you can see the commit message, date and author along with some other info.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">log</span></span></code></pre>
+<h3 id="git-status">Git status</h3>
+<p>Get the current status of the branch.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sh"><code><span class="line"><span style="color:#B392F0">s</span></span></code></pre>
+<h2 id="setup">Setup</h2>
+<p>To use all these command, follow the steps below to setup:</p>
+<ol>
+<li>Go to your user directory, for windows user it will be <code>C:\Users\&#x3C;your user></code>.</li>
+<li>Create a <code>.bashrc</code> file, if you do not have that file.</li>
+<li>Add/append the content from the below gist to that file.</li>
+<li>Open bash window. If already open then close it and then reopen bash window.</li>
+<li>Run <code>alias</code> command and you should see the list of all the alias defined.</li>
+</ol>
+<p><strong>Note:</strong> Feel free to change the function based on your need.</p>
+<h2 id="gist-for-all-the-above-commands">Gist for all the above commands</h2>
+<p>{% gist gyandeeps/c7872187585de4fa7153 %}</p>
+<p>I hope this helps people to streamline their git workflows. Please share your suggestions.</p> </div> <!-- Disqus Comments Thread --> <div class="animate-fade-in delay-3" data-astro-cid-yvbahnfj> <div class="comments-container"> <div id="disqus_thread"></div> </div> <script>(function(){const canonicalUrl = "https://gyandeeps.com/git-helpers/";
+const identifier = "/git-helpers";
+
+  var disqus_config = function () {
+    this.page.url = canonicalUrl;
+    this.page.identifier = identifier;
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://gyandeeps.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+})();</script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> </div> </article>  </main> <footer class="site-footer"> <div class="footer-socials"> <a href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a> <a href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="mailto:gyandeeps@gmail.com" title="Email"><i class="fas fa-envelope"></i></a> </div> <p>&copy; 2026 Gyandeep Singh. Built with Astro &amp; Vanilla CSS.</p> </footer> <script>
+    // Scroll Progress Indicator
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const progressEl = document.getElementById('scrollProgress');
+      if (progressEl) {
+        progressEl.style.width = scrolled + '%';
+      }
+    });
+
+    // Mouse tracking for cards
+    function setupCardGlows() {
+      const cards = document.querySelectorAll('.post-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', setupCardGlows);
+  </script> </body> </html>

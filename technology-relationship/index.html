@@ -1,0 +1,149 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Use technology to strengthen your relationship - Gyandeep Singh</title><meta name="description" content="How technology can help you strengthen your relationship"><link rel="canonical" href="https://gyandeeps.com/technology-relationship/"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://gyandeeps.com/technology-relationship/"><meta property="og:title" content="Use technology to strengthen your relationship - Gyandeep Singh"><meta property="og:description" content="How technology can help you strengthen your relationship"><meta property="og:site_name" content="Gyandeep Singh"><!-- Twitter --><meta name="twitter:card" content="summary"><meta name="twitter:url" content="https://gyandeeps.com/technology-relationship/"><meta name="twitter:title" content="Use technology to strengthen your relationship - Gyandeep Singh"><meta name="twitter:description" content="How technology can help you strengthen your relationship"><meta name="twitter:site" content="@gyandeeps"><meta name="twitter:creator" content="@gyandeeps"><!-- Favicon --><link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico"><link rel="icon" type="image/png" href="/assets/images/favicon.png"><!-- FontAwesome for icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70327992-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-70327992-1');
+  </script><link rel="stylesheet" href="/_astro/BaseLayout.CeSbYlqh.css">
+<style>.back-link-container[data-astro-cid-yvbahnfj]{margin-bottom:2rem}.back-link[data-astro-cid-yvbahnfj]{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-secondary);font-size:.95rem;font-weight:500;transition:color .2s,transform .2s}.back-link[data-astro-cid-yvbahnfj]:hover{color:var(--color-accent);transform:translate(-4px)}
+</style></head> <body> <div class="scroll-progress" id="scrollProgress"></div> <div class="bg-glow-sphere bg-glow-sphere-1"></div> <div class="bg-glow-sphere bg-glow-sphere-2"></div> <header class="masthead animate-fade-in"> <div class="nav-container"> <a href="/" class="site-title"> <span>Gyandeep Singh</span> </a> <nav> <ul class="nav-links"> <li><a href="/" class>Home</a></li> <li><a href="/about/" class>About</a></li> </ul> </nav> </div> </header> <main class="content-wrapper">  <article class="animate-fade-in delay-1" data-astro-cid-yvbahnfj> <div class="back-link-container" data-astro-cid-yvbahnfj> <a href="/" class="back-link" data-astro-cid-yvbahnfj> <i class="fas fa-arrow-left" data-astro-cid-yvbahnfj></i> Back to Home
+</a> </div> <header class="article-header" data-astro-cid-yvbahnfj> <h1 class="article-title" data-astro-cid-yvbahnfj>Use technology to strengthen your relationship</h1> <div class="post-meta" data-astro-cid-yvbahnfj> <time datetime="2016-10-20" data-astro-cid-yvbahnfj>October 20, 2016</time> <span data-astro-cid-yvbahnfj>&bull;</span>
+          <span data-astro-cid-yvbahnfj>By gyandeeps</span> </div> <div class="tag-list" style="margin-top: 1rem;" data-astro-cid-yvbahnfj> <span class="tag-badge" data-astro-cid-yvbahnfj>javascript</span><span class="tag-badge" data-astro-cid-yvbahnfj>aws</span><span class="tag-badge" data-astro-cid-yvbahnfj>relationship</span><span class="tag-badge" data-astro-cid-yvbahnfj>messages</span> </div> </header> <div class="article-content animate-fade-in delay-2" data-astro-cid-yvbahnfj> <p>I got married in December 2014 and after getting married within a month my wife had to move to Omaha, Nebraska to work towards her MIS degree (2 year course). I was left alone in Kansas City (bachelor again :) ). Since I work during the week and on weekends I do some open source work my life was very busy. Only at night I used to talk to my wife for few minutes and then go off to bed. My wife was never happy with how much time I gave her from the day and I didn’t even text her. So her biggest complain was that I don’t talk to her enough during the day, even don’t send text messages. I know every man alive on the planet has heard the same words from the other half.</p>
+<p>After all this, one day I decided to do something about this and being a software engineer my first thought was why not use technology and automate this type of human interaction. And that is when I decided to spend few hours on this project.
+Now I am going to switch gear and convert the above situation into technical user story and solve the problem in hand.</p>
+<h2 id="user-story">User Story</h2>
+<ul>
+<li>Send text messages to wife everyday (I chose to send only 1 message).</li>
+<li>Make sure the message are appropriately worded with words like “love”, “miss you”, etc.</li>
+</ul>
+<h2 id="design">Design</h2>
+<p>I wanted to automate this process so that I can keep doing what I do and my wife still receives messages. This way I will also learn about AWS since everyone is talking about it.</p>
+<ul>
+<li>Use Amazon web services</li>
+<li>Build a script which picks a nice message and sends the message everyday.
+<ul>
+<li>I choose to send it at 4PM CDT (random time)</li>
+</ul>
+</li>
+</ul>
+<h2 id="technical-work">Technical work</h2>
+<p>Use these Amazon web services:</p>
+<ol>
+<li>CloudWatch<sup><a href="#user-content-fn-1" id="user-content-fnref-1" data-footnote-ref="" aria-describedby="footnote-label">1</a></sup></li>
+<li>Lambda<sup><a href="#user-content-fn-2" id="user-content-fnref-2" data-footnote-ref="" aria-describedby="footnote-label">2</a></sup></li>
+<li>SNS<sup><a href="#user-content-fn-3" id="user-content-fnref-3" data-footnote-ref="" aria-describedby="footnote-label">3</a></sup></li>
+</ol>
+<h3 id="cloudwatch">CloudWatch</h3>
+<p>Setup cloud watch to run my lambda function at a particular time of the day. Its like a cron job.</p>
+<ul>
+<li>Create a rule with a name of your choice.</li>
+<li>Specify the time interval to run.
+<ul>
+<li>used Cron expression <code>0 21 * * ? *</code> (4PM CDT)</li>
+</ul>
+</li>
+<li>Select your lambda function inside the target.</li>
+</ul>
+<h3 id="lambda">Lambda</h3>
+<p>This is the brain of this whole project. When this function is triggered by the CloudWatch, it basically picks up a random message from the array of messages and then posts the message to SNS topic (explained later).</p>
+<ul>
+<li>Create a Lambda function with hello world template</li>
+<li>Give it some name, description and use NodeJS as the environment.</li>
+<li>Use the below code and fill in the required information as mentioned inside the comments</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#79B8FF"> AWS</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> require</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"aws-sdk"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> messages </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [ </span><span style="color:#6A737D">// this where you want to put all the messages, I have like 100 messages here</span></span>
+<span class="line"><span style="color:#9ECBFF">    "hi"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "bye"</span><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getRandomMessage</span><span style="color:#E1E4E8">(){</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> messages[ Math.</span><span style="color:#B392F0">floor</span><span style="color:#E1E4E8">(Math.</span><span style="color:#B392F0">random</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> messages.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8"> ];</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">exports</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">handler</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">context</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">callback</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> sns </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#79B8FF"> AWS</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">SNS</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> params </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">        Message: </span><span style="color:#B392F0">getRandomMessage</span><span style="color:#E1E4E8">(),</span></span>
+<span class="line"><span style="color:#E1E4E8">        Subject: </span><span style="color:#9ECBFF">"&#x3C;Give a subject name (I just used my wife's name)>"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">        TopicArn: </span><span style="color:#9ECBFF">"&#x3C;use the topic arn number from SNS>"</span></span>
+<span class="line"><span style="color:#E1E4E8">    };</span></span>
+<span class="line"><span style="color:#E1E4E8">    sns.</span><span style="color:#B392F0">publish</span><span style="color:#E1E4E8">(params, context.done);</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<ul>
+<li>Create a role which gives permission to your lambda function to post on SNS topic<sup><a href="#user-content-fn-4" id="user-content-fnref-4" data-footnote-ref="" aria-describedby="footnote-label">4</a></sup>.</li>
+</ul>
+<h3 id="sns">SNS</h3>
+<p>We will use SNS to setup a topic and when ever you post on the topic it sends a SMS to all the subscribers.</p>
+<ul>
+<li>Create a topic with any name of your choice
+<ul>
+<li>You will get the topic arn which you want to use inside your lambda function code</li>
+</ul>
+</li>
+<li>Inside the topic create subscriptions (You want to do it one here unless you plan to send to to many people :p )
+<ul>
+<li>Set protocol to SMS</li>
+<li>Set the cell number</li>
+</ul>
+</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>This helped a lot since my wife gets so excited when she gets these messages everyday. She knows its me who is sending these messages but I always deny it. Now she will find out after reading this post.</p>
+<h5 id="references">References</h5>
+<section data-footnotes="" class="footnotes"><h2 class="sr-only" id="footnote-label">Footnotes</h2>
+<ol>
+<li id="user-content-fn-1">
+<p><a href="https://aws.amazon.com/cloudwatch/">CloudWatch</a> <a href="#user-content-fnref-1" data-footnote-backref="" aria-label="Back to reference 1" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-2">
+<p><a href="https://aws.amazon.com/lambda/">Lambda</a> <a href="#user-content-fnref-2" data-footnote-backref="" aria-label="Back to reference 2" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-3">
+<p><a href="https://aws.amazon.com/sns/">SNS</a> <a href="#user-content-fnref-3" data-footnote-backref="" aria-label="Back to reference 3" class="data-footnote-backref">↩</a></p>
+</li>
+<li id="user-content-fn-4">
+<p><a href="http://docs.aws.amazon.com/lambda/latest/dg/intro-permission-model.html">AWS Permission model</a> <a href="#user-content-fnref-4" data-footnote-backref="" aria-label="Back to reference 4" class="data-footnote-backref">↩</a></p>
+</li>
+</ol>
+</section> </div> <!-- Disqus Comments Thread --> <div class="animate-fade-in delay-3" data-astro-cid-yvbahnfj> <div class="comments-container"> <div id="disqus_thread"></div> </div> <script>(function(){const canonicalUrl = "https://gyandeeps.com/technology-relationship/";
+const identifier = "/technology-relationship";
+
+  var disqus_config = function () {
+    this.page.url = canonicalUrl;
+    this.page.identifier = identifier;
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://gyandeeps.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+})();</script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> </div> </article>  </main> <footer class="site-footer"> <div class="footer-socials"> <a href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a> <a href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="mailto:gyandeeps@gmail.com" title="Email"><i class="fas fa-envelope"></i></a> </div> <p>&copy; 2026 Gyandeep Singh. Built with Astro &amp; Vanilla CSS.</p> </footer> <script>
+    // Scroll Progress Indicator
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const progressEl = document.getElementById('scrollProgress');
+      if (progressEl) {
+        progressEl.style.width = scrolled + '%';
+      }
+    });
+
+    // Mouse tracking for cards
+    function setupCardGlows() {
+      const cards = document.querySelectorAll('.post-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', setupCardGlows);
+  </script> </body> </html>

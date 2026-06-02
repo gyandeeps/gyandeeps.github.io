@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Garage door operations using Raspberry Pi - Gyandeep Singh</title><meta name="description" content="Automating garage door operations using raspberry pi and other electronic parts"><link rel="canonical" href="https://gyandeeps.com/garage-operations-raspberrypi/"><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://gyandeeps.com/garage-operations-raspberrypi/"><meta property="og:title" content="Garage door operations using Raspberry Pi - Gyandeep Singh"><meta property="og:description" content="Automating garage door operations using raspberry pi and other electronic parts"><meta property="og:site_name" content="Gyandeep Singh"><!-- Twitter --><meta name="twitter:card" content="summary"><meta name="twitter:url" content="https://gyandeeps.com/garage-operations-raspberrypi/"><meta name="twitter:title" content="Garage door operations using Raspberry Pi - Gyandeep Singh"><meta name="twitter:description" content="Automating garage door operations using raspberry pi and other electronic parts"><meta name="twitter:site" content="@gyandeeps"><meta name="twitter:creator" content="@gyandeeps"><!-- Favicon --><link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico"><link rel="icon" type="image/png" href="/assets/images/favicon.png"><!-- FontAwesome for icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous"><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-70327992-1"></script><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-70327992-1');
+  </script><link rel="stylesheet" href="/_astro/BaseLayout.CeSbYlqh.css">
+<style>.back-link-container[data-astro-cid-yvbahnfj]{margin-bottom:2rem}.back-link[data-astro-cid-yvbahnfj]{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-secondary);font-size:.95rem;font-weight:500;transition:color .2s,transform .2s}.back-link[data-astro-cid-yvbahnfj]:hover{color:var(--color-accent);transform:translate(-4px)}
+</style></head> <body> <div class="scroll-progress" id="scrollProgress"></div> <div class="bg-glow-sphere bg-glow-sphere-1"></div> <div class="bg-glow-sphere bg-glow-sphere-2"></div> <header class="masthead animate-fade-in"> <div class="nav-container"> <a href="/" class="site-title"> <span>Gyandeep Singh</span> </a> <nav> <ul class="nav-links"> <li><a href="/" class>Home</a></li> <li><a href="/about/" class>About</a></li> </ul> </nav> </div> </header> <main class="content-wrapper">  <article class="animate-fade-in delay-1" data-astro-cid-yvbahnfj> <div class="back-link-container" data-astro-cid-yvbahnfj> <a href="/" class="back-link" data-astro-cid-yvbahnfj> <i class="fas fa-arrow-left" data-astro-cid-yvbahnfj></i> Back to Home
+</a> </div> <header class="article-header" data-astro-cid-yvbahnfj> <h1 class="article-title" data-astro-cid-yvbahnfj>Garage door operations using Raspberry Pi</h1> <div class="post-meta" data-astro-cid-yvbahnfj> <time datetime="2020-04-27" data-astro-cid-yvbahnfj>April 27, 2020</time> <span data-astro-cid-yvbahnfj>&bull;</span>
+          <span data-astro-cid-yvbahnfj>By gyandeeps</span> </div> <div class="tag-list" style="margin-top: 1rem;" data-astro-cid-yvbahnfj> <span class="tag-badge" data-astro-cid-yvbahnfj>nodejs</span><span class="tag-badge" data-astro-cid-yvbahnfj>raspberrypi</span><span class="tag-badge" data-astro-cid-yvbahnfj>automation</span> </div> </header> <div class="article-content animate-fade-in delay-2" data-astro-cid-yvbahnfj> <h1 id="expectation">Expectation</h1>
+<p>In this post I am going to explain how I automated certain garage door operation using raspberry pi. If you find it useful then you can follow this guide and build your own too.</p>
+<ul>
+<li>Open/Close garage door from your phone</li>
+<li>Know the status (open or close) of the garage door.</li>
+<li>Auto close garage door in 5 mins.</li>
+<li>Override auto close in 5 mins.</li>
+<li>Know the time it was last closed/opened.</li>
+</ul>
+<p><em>Note: This is my first take at this and I am still learning.</em></p>
+<h1 id="parts-needed">Parts needed</h1>
+<ol>
+<li>Raspberry Pi - <code>~$35</code>
+<ol>
+<li>You can use any kind 3 or 4. I used 4 because I got it for <code>$5</code> price difference.</li>
+<li>Buy link - <a href="https://www.microcenter.com/product/608436/raspberry-pi-4-model-b---2gb-ddr4">Microcenter</a></li>
+</ol>
+</li>
+<li>Breadboard jumper wires - <a href="https://www.amazon.com/gp/product/B07GD2BWPY">Amazon</a></li>
+<li>Relay module - <a href="https://www.amazon.com/gp/product/B00E0NTPP4">Amazon</a></li>
+<li>20 Gauge 2 pin wire - <a href="https://www.amazon.com/gp/product/B07SJ44SN1">Amazon</a>
+<ol>
+<li>You can buy a lower gauge wire also.</li>
+</ol>
+</li>
+<li>Magnetic switch - <a href="https://www.amazon.com/gp/product/B07YVG637M">Amazon</a></li>
+</ol>
+<h1 id="setup">Setup</h1>
+<h3 id="raspberry-pi">Raspberry Pi</h3>
+<p>I am not going to go into detail on how to setup Raspberry Pi as most of the setup instructions are available out in the wild.</p>
+<p>Here is what I used:</p>
+<ul>
+<li>Youtube video - <a href="https://www.youtube.com/watch?v=BpJCAafw2qE">https://www.youtube.com/watch?v=BpJCAafw2qE</a></li>
+<li>Docs - <a href="https://crosstalksolutions.com/getting-started-with-raspberry-pi-4/">https://crosstalksolutions.com/getting-started-with-raspberry-pi-4/</a></li>
+</ul>
+<p>Thanks to <a href="https://twitter.com/crosstalksol">@crosstalksol</a> for the awesome setup guide.</p>
+<p><em>Note: Please read up on raspberry pi GPIO pins as it will help you when you work on this project.</em></p>
+<h3 id="gpio-module-on-raspberry-pi">gpio module on raspberry pi</h3>
+<p>Inside raspberry pi, open a terminal and write <code>gpio -v</code>. We need atleast <code>2.52</code> version.</p>
+<p>If an update is needed, then follow this: <a href="http://wiringpi.com/wiringpi-updated-to-2-52-for-the-raspberry-pi-4b/">http://wiringpi.com/wiringpi-updated-to-2-52-for-the-raspberry-pi-4b/</a></p>
+<h3 id="ip-address">IP address</h3>
+<p>First, note down the current IP address of the Pi. Second. make sure you make the ip of the Pi static because we don’t want to keep changing it after restarts. This is not a necessary step, but it helps while you work on this.</p>
+<p>In my setup i have google fiber, so I logged into the router setup page and in the client list select raspberry pi. Activated the <code>reserved</code> flag on pi client so that it keeps the same ip address. Feel free to google on how to do this on your router.</p>
+<h3 id="computer">Computer</h3>
+<ul>
+<li>I installed <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">Putty</a> on my windows machine to <code>ssh</code> into raspberry pi from my windows laptop.</li>
+<li>Feel free to use any other <code>ssh</code> client which works best for you.</li>
+</ul>
+<h1 id="let-us-get-to-work">Let us get to work</h1>
+<h2 id="hardware-setup">Hardware setup</h2>
+<p>Let’s setup all the different parts to get door working first. At this point don’t worry about all these connection as we will go in detail when we start programming them.</p>
+<p>We will use <code>BCM</code> conventions for GPIO pin numbers. When using pin numbers those will denote physical pin numbers. Run <code>gpio readall</code> inside bash session on your raspberry pi to get more details.</p>
+<h4 id="find-the-manual-button-wire-connection-into-your-garage-door">Find the manual button wire connection into your garage door</h4>
+<p>I have a Chamberlain garage door opener, I was able to trace the button (from the wall) wires going into one terminal in your garage door opener. It looks like a thin looking wire as compared to regular electric wires in your house. Do not confuse the wires coming from the safety sensors hooked up to your garage door sides. In my case red was positive and white was negative.</p>
+<p>![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/garage-machine.jpg){: .align-center}</p>
+<h4 id="connect-wires-from-your-garage-opener-sockets-to-relay-module">Connect wires from your garage opener sockets to relay module</h4>
+<ul>
+<li>Make sure you connect the negative (black in pic) to center terminal of the relay module and hot (red in pic) wire to left terminal on the relay module.</li>
+<li>Concept is that when we connect these two wires, it completes the circuit which in turn trigger the garage open/close operation.</li>
+</ul>
+<p>![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/relay.jpg){: .align-center}</p>
+<h4 id="connect-relay-to-raspberry-pi">Connect relay to raspberry pi</h4>
+<ul>
+<li>Connect GND to pin 6 (other orange looking wire)</li>
+<li>Connect VCC to pin 2 ie 5v supply (red wire in pic)</li>
+<li>Connect IN2 to GPIO 4 (orange wire in pic)</li>
+</ul>
+<p>IN2 pin is what will be used to trigger the changes. Other 2 wires is to provide power (5v) to the relay.</p>
+<p>![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/relay-connection.jpg){: .align-center}</p>
+<h4 id="connect-magnetic-switch-to-raspberry-pi">Connect magnetic switch to raspberry pi</h4>
+<ul>
+<li>Connect COM to ground on pin 6
+<ul>
+<li>Black wire from the switch to orange looking wire</li>
+</ul>
+</li>
+<li>Connect NO to GPIO 2 (red wire in pic)
+<ul>
+<li>This is pin is an pull-up type which means it outputs 3.3v</li>
+<li>I am still trying to better understand this area.</li>
+<li>I think you can use other pins as pull-up by configuration but i did not try it.</li>
+</ul>
+</li>
+</ul>
+<p>Mechanical switch connections</p>
+<p>![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/magnetic-switch.jpg){: .align-center}</p>
+<p>Connection to the raspberry pi</p>
+<p>![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/raspberrypi.jpg){: .align-center}</p>
+<h4 id="mechanical-switch-to-the-garage-door">Mechanical switch to the garage door</h4>
+<ul>
+<li>Hook up the mechanical switch on the side of the garage door panel as show in the picture above.</li>
+<li>Hook up the other piece on the movable garage door so that when its closed it comes very close to the other side.</li>
+<li>Basically, it detects close when they are close to each other and open when they are not close to each other.</li>
+</ul>
+<h2 id="software">Software</h2>
+<p>Complete code: <a href="https://github.com/gyandeeps/garage">Github</a></p>
+<h4 id="using-onoff-npm-package">Using <code>onoff</code> npm package</h4>
+<ul>
+<li>This package only works on Linux so make sure you code on the raspberry pi
+<ul>
+<li>You can use vscode via ssh to code inside raspberry pi (Google is your friend here)</li>
+</ul>
+</li>
+<li>Lets setup <code>GPIO 4</code> to <code>out</code> since we are going to use that pin to trigger the open close.</li>
+<li>Configure <code>GPIO 2</code> to <code>in</code> as we are going to read high (1) and low (0) based on the magnetic switch changes.
+<ul>
+<li>Configure this pin to call out function in both direction (high and low)</li>
+<li>This library allows to read in one direction also.</li>
+</ul>
+</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> buttonTrigger</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Gpio</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"out"</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">undefined</span><span style="color:#E1E4E8">, {</span></span>
+<span class="line"><span style="color:#E1E4E8">    reconfigureDirection: </span><span style="color:#79B8FF">false</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> doorSensor</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Gpio</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"in"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"both"</span><span style="color:#E1E4E8">, {</span></span>
+<span class="line"><span style="color:#E1E4E8">    reconfigureDirection: </span><span style="color:#79B8FF">false</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    debounceTimeout: </span><span style="color:#79B8FF">1000</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre>
+<h4 id="open-close-action">Open close action</h4>
+<ul>
+<li>When we want to close/open the garage door we are going to output a low on <code>GPIO 4</code> then wait for 1 second and then output high.</li>
+<li>The reason we flip flop is that we want to just output a pulse and then get back to its original state.</li>
+<li>Think of this as a button click, press and release action kind of a deal.</li>
+<li>When you do this at this point it sends the signal to the relay where its output state is disconnected.</li>
+<li>When the trigger happens, it completes the relay switch circuit on the other side.</li>
+<li>That complete circuit allows the current to flow from inside the garage opener and that’s why its start to work.</li>
+<li>Sorry I am not an electrician so that’s the best I can explain.</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="js"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> const</span><span style="color:#B392F0"> openCloseGarage</span><span style="color:#F97583"> =</span><span style="color:#F97583"> async</span><span style="color:#E1E4E8"> () </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    buttonTrigger.</span><span style="color:#B392F0">write</span><span style="color:#E1E4E8">(Gpio.</span><span style="color:#79B8FF">LOW</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">    await</span><span style="color:#B392F0"> sleep</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">    buttonTrigger.</span><span style="color:#B392F0">write</span><span style="color:#E1E4E8">(Gpio.</span><span style="color:#79B8FF">HIGH</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre>
+<h4 id="bonus-stuff">Bonus stuff</h4>
+<p>If you use the garage module, I have setup then it should get you all started. Follow these steps inside your raspberry pi:</p>
+<ol>
+<li><code>git clone https://github.com/gyandeeps/garage.git</code></li>
+<li><code>npm install</code> (This is going to take a long time)</li>
+<li><code>sudo sh prod.sh</code></li>
+</ol>
+<h4 id="phone">Phone</h4>
+<ul>
+<li>On your phone you should be able to hit <code>http://&#x3C;ip address to pi>:3000</code></li>
+<li>Then open close the garage.</li>
+</ul>
+<h2 id="closing-thoughts">Closing thoughts</h2>
+<ul>
+<li>This is my first project and i am still trying to figure a lot of things out.</li>
+<li>Please provide feedback or anything which can be improved.</li>
+<li>Any ideas on what else can be done.</li>
+</ul>
+<p>Overall picture (needs to find a good place for this but they work for now)</p>
+<p>![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/overall.jpg){: .align-center}</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://crosstalksolutions.com/getting-started-with-raspberry-pi-4/">https://crosstalksolutions.com/getting-started-with-raspberry-pi-4/</a></li>
+<li><a href="https://www.instructables.com/id/Raspberry-Pi-Garage-Door-Opener/">https://www.instructables.com/id/Raspberry-Pi-Garage-Door-Opener/</a></li>
+<li><a href="https://www.driscocity.com/idiots-guide-to-a-raspberry-pi-garage-door-opener/">https://www.driscocity.com/idiots-guide-to-a-raspberry-pi-garage-door-opener/</a></li>
+<li><a href="http://wiringpi.com/wiringpi-updated-to-2-52-for-the-raspberry-pi-4b/">http://wiringpi.com/wiringpi-updated-to-2-52-for-the-raspberry-pi-4b/</a></li>
+</ul> </div> <!-- Disqus Comments Thread --> <div class="animate-fade-in delay-3" data-astro-cid-yvbahnfj> <div class="comments-container"> <div id="disqus_thread"></div> </div> <script>(function(){const canonicalUrl = "https://gyandeeps.com/garage-operations-raspberrypi/";
+const identifier = "/garage-operations-raspberrypi";
+
+  var disqus_config = function () {
+    this.page.url = canonicalUrl;
+    this.page.identifier = identifier;
+  };
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://gyandeeps.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+})();</script> <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript> </div> </article>  </main> <footer class="site-footer"> <div class="footer-socials"> <a href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a> <a href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="Twitter"><i class="fab fa-twitter"></i></a> <a href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin"></i></a> <a href="mailto:gyandeeps@gmail.com" title="Email"><i class="fas fa-envelope"></i></a> </div> <p>&copy; 2026 Gyandeep Singh. Built with Astro &amp; Vanilla CSS.</p> </footer> <script>
+    // Scroll Progress Indicator
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      const progressEl = document.getElementById('scrollProgress');
+      if (progressEl) {
+        progressEl.style.width = scrolled + '%';
+      }
+    });
+
+    // Mouse tracking for cards
+    function setupCardGlows() {
+      const cards = document.querySelectorAll('.post-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+        });
+      });
+    }
+
+    // Initialize on load
+    window.addEventListener('DOMContentLoaded', setupCardGlows);
+  </script> </body> </html>
