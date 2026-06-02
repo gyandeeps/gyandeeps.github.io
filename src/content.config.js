@@ -1,7 +1,8 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const postsCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/[^_]*.md', base: './src/content/posts' }),
   schema: z.object({
     title: z.string(),
     excerpt: z.string().optional(),

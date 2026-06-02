@@ -1,14 +1,14 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Disqus from '../components/Disqus.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
   return posts.map(post => {
-    const match = post.slug.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/);
+    const match = post.id.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/);
     const dateStr = match ? match[1] : '';
-    const urlSlug = match ? match[2] : post.slug;
+    const urlSlug = match ? match[2] : post.id;
     return {
       params: { slug: urlSlug },
       props: { post, dateStr, urlSlug },
@@ -17,7 +17,7 @@ export async function getStaticPaths() {
 }
 
 const { post, dateStr, urlSlug } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 const dateObj = dateStr ? new Date(dateStr) : new Date();
 const formattedDate = dateObj.toLocaleDateString('en-US', {

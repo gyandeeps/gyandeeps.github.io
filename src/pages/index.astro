@@ -5,9 +5,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const allPosts = await getCollection('posts');
 
 const processedPosts = allPosts.map(post => {
-  const match = post.slug.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/);
+  const match = post.id.match(/^(\d{4}-\d{2}-\d{2})-(.+)$/);
   const dateStr = match ? match[1] : '';
-  const urlSlug = match ? match[2] : post.slug;
+  const urlSlug = match ? match[2] : post.id;
   const dateObj = dateStr ? new Date(dateStr) : new Date();
   
   return {
