@@ -28,7 +28,7 @@ const sortedPosts = processedPosts.sort((a, b) => b.dateObj.getTime() - a.dateOb
 
 <BaseLayout title="Home" description="Personal website of Gyandeep Singh, a Senior Software Engineer specializing in Web, JavaScript, and Node.js.">
   
-  <section class="profile-section">
+  <section class="profile-section animate-fade-in delay-1">
     <img src="/assets/images/self.jpg" alt="Gyandeep Singh" class="profile-avatar" />
     <div class="profile-info">
       <h1>Gyandeep Singh</h1>
@@ -50,18 +50,18 @@ const sortedPosts = processedPosts.sort((a, b) => b.dateObj.getTime() - a.dateOb
           <a href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer">gyandeeps</a>
         </div>
         <div class="profile-meta-item">
-          <i class="fab fa-stack-overflow text-accent"></i>
-          <a href="https://stackoverflow.com/users/2449389/gyandeep" target="_blank" rel="noopener noreferrer">Stack Overflow</a>
+          <i class="fab fa-linkedin text-accent"></i>
+          <a href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
       </div>
     </div>
   </section>
 
   <section>
-    <h2>Recent Writing</h2>
+    <h2 class="animate-fade-in delay-2">Recent Writing</h2>
     <div class="card-grid">
-      {sortedPosts.map(post => (
-        <article class="post-card">
+      {sortedPosts.map((post, index) => (
+        <article class="post-card animate-fade-in" style={`animation-delay: ${0.3 + (index * 0.1)}s;`}>
           <div class="post-meta">
             <time datetime={post.dateObj.toISOString().split('T')[0]}>{post.formattedDate}</time>
             {post.data.tags && post.data.tags.length > 0 && (

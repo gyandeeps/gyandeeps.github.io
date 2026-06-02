@@ -2,34 +2,99 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About Me" description="Learn more about Gyandeep Singh, a Senior Software Engineer with a passion for web development and JavaScript.">
-  <article>
-    <header class="article-header">
-      <h1 class="article-title">About Me</h1>
-    </header>
+<BaseLayout title="About Me" description="Learn more about Gyandeep Singh, a Staff Software Engineer, Healthcare IT Architect, and ESLint TSC Member specializing in distributed systems and developer tooling.">
+  <article class="animate-fade-in delay-1">
+    
+    <!-- Hero / Intro -->
+    <section class="about-hero">
+      <img src="/assets/images/self.jpg" alt="Gyandeep Singh" class="about-avatar" />
+      <div class="about-info">
+        <h1>Gyandeep Singh</h1>
+        <p class="subtitle">Staff Software Engineer &bull; Healthcare IT Architect &bull; Open Source Contributor</p>
+        <p class="about-bio">
+          Staff Software Engineer with 12+ years of experience transforming complex healthcare challenges into scalable, high-impact technical solutions. My career is defined by building mission-critical platforms—from real-time billing engines processing millions in revenue to ambient clinical intelligence that reduces clinician burnout. I bridge the gap between low-level architectural efficiency and high-level business value, with a deep commitment to developer tooling and open-source contribution.
+        </p>
+      </div>
+    </section>
+
+    <!-- Milestones / Social Proof Bar -->
+    <section class="milestones-bar">
+      <div class="milestone-card">
+        <div class="milestone-value">12+ Years</div>
+        <div class="milestone-label">Engineering Experience</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-value">ESLint TSC</div>
+        <div class="milestone-label">Open Source Governance</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-value">Patent Holder</div>
+        <div class="milestone-label">NLU &amp; Code Transform</div>
+      </div>
+      <div class="milestone-card">
+        <div class="milestone-value">Distinguished</div>
+        <div class="milestone-label">Execution Awards</div>
+      </div>
+    </section>
 
     <div class="article-content">
-      <h2>Super quick intro</h2>
-      <p>
-        Senior Software Engineer. Web &amp; JavaScript Lover... JavaScript, Node.js, HTML, CSS, ESLint, MongoDB, robots, and #Friends lover.
-      </p>
-      <p>
-        I use semicolons and prefer 4 spaces against tabs.
-      </p>
+      <!-- Pillars of Expertise -->
+      <h2>Core Pillars of Expertise</h2>
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-icon"><i class="fas fa-sitemap"></i></div>
+          <h3>Architectural Leadership</h3>
+          <p>Transitioning complex legacy systems into high-performance, event-driven architectures utilizing Apache Kafka. Focused on system reliability, high availability, PHI data integrity, and strict healthcare compliance.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon"><i class="fas fa-heartbeat"></i></div>
+          <h3>Healthcare Tech &amp; Domain</h3>
+          <p>Navigating the complex constraints of HIPAA-compliant software engineering. Experienced in clinical workflow optimization, ambient clinical intelligence, and creating tech that helps fight clinician burnout.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon"><i class="fas fa-terminal"></i></div>
+          <h3>Developer Tooling &amp; OSS</h3>
+          <p>Steward on the ESLint Technical Steering Committee. Leading open-source governance, steering code quality standards, and maintaining core libraries used daily by millions of developers worldwide.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-icon"><i class="fas fa-lightbulb"></i></div>
+          <h3>Innovation &amp; Patents</h3>
+          <p>Active patent holder, specializing in automated code refactoring, structural transformations, and natural language understanding (NLU). Dedicated to solving challenging, unchartered software problems.</p>
+        </div>
+      </div>
 
-      <h2>Background</h2>
-      <p>
-        Farmer's boy from <a href="https://www.google.com/maps/place/Dabra,+Madhya+Pradesh+475110,+India/@25.8961533,78.3131976,14z/data=!4m2!3m1!1s0x39771faaadb585a5:0x5ccc688cfbe0d7d1" target="_blank" rel="noopener noreferrer">Dabra, Gwalior India</a>, with hardworking parents, went to <a href="http://www.scindia.edu/" target="_blank" rel="noopener noreferrer">Scindia School</a> for schooling.
-      </p>
-      <p>
-        After completing school, went to <a href="http://www.unipune.ac.in/" target="_blank" rel="noopener noreferrer">Pune University</a> to work on my undergraduate degree in information technology.
-      </p>
-      <p>
-        After finishing my undergraduate degree, I decided to pursue a Master's in Computer Science at the <a href="http://www.uhcl.edu/" target="_blank" rel="noopener noreferrer">University of Houston</a>.
-      </p>
-      <p>
-        Currently working as a Senior Software Engineer.
-      </p>
+      <!-- Staff Perspective -->
+      <h2>Staff-Level Perspective</h2>
+      <div class="perspective-grid">
+        <div class="perspective-block">
+          <h3><i class="fas fa-brain text-accent"></i> Technical Philosophy</h3>
+          <p>
+            I prioritize long-term maintainability, developer velocity, and robust system design over quick-fix solutions. I believe engineering is about building systems that outlast their creators, choosing simple, elegant architectures to solve complex business problems.
+          </p>
+        </div>
+        <div class="perspective-block">
+          <h3><i class="fas fa-users text-accent"></i> Mentorship &amp; Community</h3>
+          <p>
+            I believe a Staff Engineer's value is multiplied through others. I focus on growing engineering talent, providing technical mentorship, and serving as a judge for startup competitions (like the MN Cup) to support the broader tech ecosystem.
+          </p>
+        </div>
+      </div>
+
+
+      <!-- Let's Connect CTA -->
+      <div class="cta-box">
+        <h3>Let's Connect</h3>
+        <p>I enjoy discussing distributed systems, healthcare innovation, open source governance, or the future of developer tooling. Let's connect or collaborate!</p>
+        <div class="cta-buttons">
+          <a href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            <i class="fab fa-linkedin"></i> Connect on LinkedIn
+          </a>
+          <a href="mailto:gyandeeps@gmail.com" class="btn-secondary">
+            <i class="fas fa-envelope"></i> Send an Email
+          </a>
+        </div>
+      </div>
+
     </div>
   </article>
 </BaseLayout>

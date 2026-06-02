@@ -29,7 +29,13 @@ const formattedDate = dateObj.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={post.data.title} description={post.data.excerpt}>
-  <article>
+  <article class="animate-fade-in delay-1">
+    <div class="back-link-container">
+      <a href="/" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+
     <header class="article-header">
       <h1 class="article-title">{post.data.title}</h1>
       <div class="post-meta">
@@ -48,11 +54,32 @@ const formattedDate = dateObj.toLocaleDateString('en-US', {
       )}
     </header>
 
-    <div class="article-content">
+    <div class="article-content animate-fade-in delay-2">
       <Content />
     </div>
 
     <!-- Disqus Comments Thread -->
-    <Disqus slug={urlSlug} title={post.data.title} />
+    <div class="animate-fade-in delay-3">
+      <Disqus slug={urlSlug} title={post.data.title} />
+    </div>
   </article>
 </BaseLayout>
+
+<style>
+  .back-link-container {
+    margin-bottom: 2rem;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .back-link:hover {
+    color: var(--color-accent);
+    transform: translateX(-4px);
+  }
+</style>
