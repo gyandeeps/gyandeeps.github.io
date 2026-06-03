@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 
 const allPosts = await getCollection('posts');
 
@@ -9,7 +9,7 @@ const processedPosts = allPosts.map(post => {
   const dateStr = match ? match[1] : '';
   const urlSlug = match ? match[2] : post.id;
   const dateObj = dateStr ? new Date(dateStr) : new Date();
-  
+
   return {
     ...post,
     urlSlug,
@@ -26,65 +26,461 @@ const processedPosts = allPosts.map(post => {
 const sortedPosts = processedPosts.sort((a, b) => b.dateObj.getTime() - a.dateObj.getTime());
 ---
 
-<BaseLayout title="Home" description="Personal website of Gyandeep Singh, a Senior Software Engineer specializing in Web, JavaScript, and Node.js.">
-  
-  <section class="profile-section animate-fade-in delay-1">
-    <img src="/assets/images/self.jpg" alt="Gyandeep Singh" class="profile-avatar" />
-    <div class="profile-info">
-      <h1>Gyandeep Singh</h1>
-      <p class="subtitle">Senior Software Engineer &amp; JavaScript Enthusiast</p>
-      <p class="profile-bio">
-        Web &amp; JavaScript Lover... JavaScript, Node.js, HTML, CSS, ESLint, MongoDB, robots, and #Friends lover. Semicolon user and 4-spaces proponent.
-      </p>
-      <div class="profile-meta-list">
-        <div class="profile-meta-item">
-          <i class="fas fa-map-marker-alt text-accent"></i>
-          <span>Kansas City</span>
+<PortfolioLayout title="Gyandeep Singh | Staff Software Engineer" description="Personal portfolio and blog of Gyandeep Singh, a Staff Software Engineer, Open-Source Leader, and Distributed Systems Architect.">
+  <!-- Top Navigation Bar -->
+  <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-primary/20 h-20">
+    <div class="flex justify-between items-center max-w-[1280px] mx-auto px-md md:px-lg h-full">
+      <div class="font-headline-lg text-lg sm:text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-wide md:tracking-widest flex items-center shrink-0">
+        Gyandeep Singh
+      </div>
+      <div class="hidden md:flex gap-lg items-center">
+        <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200" href="#impact">Impact</a>
+        <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200" href="#experience">Experience</a>
+        <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200" href="#matrix">Architecture</a>
+        <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200" href="#lab">Engineering Lab</a>
+        <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200" href="#blog">Writing</a>
+        <div class="flex gap-md items-center border-l border-primary/20 pl-lg ml-sm">
+          <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center" href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="GitHub">
+            <i class="fab fa-github text-lg"></i>
+          </a>
+          <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center" href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+            <i class="fab fa-linkedin text-lg"></i>
+          </a>
+          <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center" href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="Twitter">
+            <i class="fab fa-twitter text-lg"></i>
+          </a>
         </div>
-        <div class="profile-meta-item">
-          <i class="fab fa-github text-accent"></i>
-          <a href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer">gyandeeps</a>
+        <a href="mailto:gyandeeps@gmail.com" class="ml-4 px-md py-xs bg-primary text-black font-bold font-label-sm uppercase tracking-wider rounded-sm active:scale-95 transition-all">Connect</a>
+      </div>
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-btn" class="md:hidden text-primary hover:text-white transition-colors cursor-pointer flex items-center justify-center p-2" aria-label="Toggle Navigation Menu">
+        <span class="material-symbols-outlined text-2xl">menu</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Navigation Menu Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 z-40 bg-black/95 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 md:hidden flex flex-col justify-center items-center gap-lg">
+    <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href="#impact">Impact</a>
+    <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href="#experience">Experience</a>
+    <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href="#matrix">Architecture</a>
+    <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href="#lab">Engineering Lab</a>
+    <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href="#blog">Writing</a>
+    
+    <div class="flex gap-lg items-center border-t border-primary/20 pt-lg mt-md w-48 justify-center">
+      <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center" href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <i class="fab fa-github text-xl"></i>
+      </a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center" href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <i class="fab fa-linkedin text-xl"></i>
+      </a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center" href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+        <i class="fab fa-twitter text-xl"></i>
+      </a>
+    </div>
+    
+    <a href="mailto:gyandeeps@gmail.com" class="px-lg py-sm bg-primary text-black font-bold font-label-sm uppercase tracking-wider rounded-sm active:scale-95 transition-all mt-lg mobile-nav-link">Connect</a>
+  </div>
+
+  <main class="pt-32 pb-xl px-lg max-w-[1280px] mx-auto">
+    <!-- Hero Section -->
+    <section class="grid grid-cols-12 gap-gutter mb-xl">
+      <div class="col-span-12 lg:col-span-8 flex flex-col justify-center">
+        <div class="inline-flex items-center gap-2 mb-md text-primary font-label-sm uppercase tracking-widest">
+          Staff Software Engineer | Open-Source Leader | Distributed Systems Architect
         </div>
-        <div class="profile-meta-item">
-          <i class="fab fa-twitter text-accent"></i>
-          <a href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer">gyandeeps</a>
-        </div>
-        <div class="profile-meta-item">
-          <i class="fab fa-linkedin text-accent"></i>
-          <a href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <h1 class="font-display-lg text-display-lg mb-lg text-on-surface leading-tight">
+          Bridging <span class="text-primary glow-accent">Engineering</span> Precision with Multi-Million-Dollar Outcomes.
+        </h1>
+        <p class="font-body-md text-body-md text-on-surface-variant max-w-2xl mb-xl">
+          12+ years of healthcare IT experience architecting mission-critical, compliant, high-concurrency systems. Former ESLint core governor impacting millions of global developers.
+        </p>
+        <div class="flex flex-wrap gap-md">
+          <div class="glass-panel px-md py-sm rounded-lg flex items-center gap-sm border-primary/30">
+            <span class="material-symbols-outlined text-primary">corporate_fare</span>
+            <span class="font-label-sm text-on-surface">Staff SE @ Hinge Health</span>
+          </div>
+          <div class="glass-panel px-md py-sm rounded-lg flex items-center gap-sm border-primary/30">
+            <span class="material-symbols-outlined text-primary">workspace_premium</span>
+            <span class="font-label-sm text-on-surface">IEEE Senior Member</span>
+          </div>
+          <div class="glass-panel px-md py-sm rounded-lg flex items-center gap-sm border-primary/30">
+            <span class="material-symbols-outlined text-primary">history_edu</span>
+            <span class="font-label-sm text-on-surface">2 U.S. Patents</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+      <div class="col-span-12 lg:col-span-4 relative">
+        <div class="aspect-square glass-panel rounded-xl overflow-hidden relative group border-primary/40">
+          <img alt="Professional technical portrait of Gyandeep Singh" class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-700" src="/assets/images/self.jpg"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
+        </div>
+        <!-- Interactive Metric Overlay -->
+        <div class="absolute -bottom-4 -left-4 glass-panel p-md rounded-lg shadow-2xl border-primary/60 bg-black/90 animate-pulse">
+          <div class="font-label-sm text-primary mb-1 uppercase">Top 3% Excellence</div>
+          <div class="font-display-lg text-[24px] text-white">2025 GSD Award</div>
+        </div>
+      </div>
+    </section>
 
-  <section>
-    <h2 class="animate-fade-in delay-2">Recent Writing</h2>
-    <div class="card-grid">
-      {sortedPosts.map((post, index) => (
-        <article class="post-card animate-fade-in" style={`animation-delay: ${0.3 + (index * 0.1)}s;`}>
-          <div class="post-meta">
-            <time datetime={post.dateObj.toISOString().split('T')[0]}>{post.formattedDate}</time>
+    <!-- Impact Section -->
+    <section class="mb-xl" id="impact">
+      <div class="flex items-center gap-md mb-lg">
+        <h2 class="font-headline-lg text-headline-lg text-primary uppercase tracking-tight">Eminence & Impact</h2>
+        <div class="flex-grow h-[1px] bg-primary/20"></div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-md">
+        <div class="glass-panel p-md rounded-xl text-center border-primary/20">
+          <div class="text-primary text-2xl font-bold mb-1">12+</div>
+          <div class="text-[10px] text-primary/80 uppercase tracking-widest leading-tight">Years Enterprise Healthcare</div>
+        </div>
+        <div class="glass-panel p-md rounded-xl text-center border-primary/20">
+          <div class="text-primary text-2xl font-bold mb-1">$1M+</div>
+          <div class="text-[10px] text-primary/80 uppercase tracking-widest leading-tight">Daily Revenue Processed</div>
+        </div>
+        <div class="glass-panel p-md rounded-xl text-center border-primary/20">
+          <div class="text-primary text-2xl font-bold mb-1">2</div>
+          <div class="text-[10px] text-primary/80 uppercase tracking-widest leading-tight">U.S. Patents Granted</div>
+        </div>
+        <div class="glass-panel p-md rounded-xl text-center border-primary/20">
+          <div class="text-primary text-2xl font-bold mb-1">Millions</div>
+          <div class="text-[10px] text-primary/80 uppercase tracking-widest leading-tight">Devs Impacted (ESLint)</div>
+        </div>
+        <div class="glass-panel p-md rounded-xl text-center border-primary/20">
+          <div class="text-primary text-2xl font-bold mb-1">Top 3%</div>
+          <div class="text-[10px] text-primary/80 uppercase tracking-widest leading-tight">Professional Excellence</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technical Journey / Experience -->
+    <section class="mb-xl" id="experience">
+      <h2 class="font-headline-lg text-headline-lg text-primary uppercase mb-lg">Case Studies & Experience</h2>
+      <div class="grid gap-md">
+        <!-- Case Study 1 -->
+        <div class="glass-panel p-lg rounded-xl border-l-4 border-l-primary hover:bg-white/[0.02] transition-all duration-300">
+          <div class="flex flex-col md:flex-row justify-between mb-md">
+            <div>
+              <h3 class="font-title-md text-white">Real-Time Financial Infrastructure @ Hinge Health</h3>
+              <p class="text-primary font-label-sm uppercase tracking-wider">2022 — Present</p>
+            </div>
+            <div class="mt-2 md:mt-0 flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-primary/10 rounded text-[10px] text-primary border border-primary/30">KAFKA</span>
+              <span class="px-2 py-1 bg-primary/10 rounded text-[10px] text-primary border border-primary/30">PYTHON</span>
+              <span class="px-2 py-1 bg-primary/10 rounded text-[10px] text-primary border border-primary/30">K8S</span>
+            </div>
+          </div>
+          <p class="text-on-surface-variant font-body-md mb-md">
+            Architecting high-concurrency Kafka-driven billing systems and Python-based state machines while ensuring strict PHI compliance and operational scalability.
+          </p>
+          <div class="flex flex-wrap gap-xs">
+            <span class="text-[12px] font-mono text-primary/60 px-2 py-0.5 border border-primary/10 rounded">FastAPI</span>
+            <span class="text-[12px] font-mono text-primary/60 px-2 py-0.5 border border-primary/10 rounded">React</span>
+            <span class="text-[12px] font-mono text-primary/60 px-2 py-0.5 border border-primary/10 rounded">PostgreSQL</span>
+            <span class="text-[12px] font-mono text-primary/60 px-2 py-0.5 border border-primary/10 rounded">AWS</span>
+          </div>
+        </div>
+        <!-- Case Study 2 -->
+        <div class="glass-panel p-lg rounded-xl border-l-4 border-l-primary/30 hover:border-l-primary transition-all duration-300">
+          <div class="flex flex-col md:flex-row justify-between mb-md">
+            <div>
+              <h3 class="font-title-md text-white">Ambient Clinical Intelligence @ Cerner</h3>
+              <p class="text-primary/60 font-label-sm uppercase tracking-wider">2018 — 2022</p>
+            </div>
+            <div class="mt-2 md:mt-0 flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-primary/5 rounded text-[10px] text-primary/60 border border-primary/20">RUBY ON RAILS</span>
+              <span class="px-2 py-1 bg-primary/5 rounded text-[10px] text-primary/60 border border-primary/20">NLU</span>
+              <span class="px-2 py-1 bg-primary/5 rounded text-[10px] text-primary/60 border border-primary/20">VOICE UI</span>
+            </div>
+          </div>
+          <p class="text-on-surface-variant font-body-md mb-md">
+            Engineered virtual scribe and physician voice assistant solutions integrating Natural Language Understanding (NLU) into clinical workflows.
+          </p>
+          <div class="flex flex-wrap gap-xs">
+            <span class="text-[12px] font-mono text-primary/40 px-2 py-0.5 border border-primary/5 rounded">React</span>
+            <span class="text-[12px] font-mono text-primary/40 px-2 py-0.5 border border-primary/5 rounded">AWS</span>
+            <span class="text-[12px] font-mono text-primary/40 px-2 py-0.5 border border-primary/5 rounded">Objective-C</span>
+          </div>
+        </div>
+        <!-- Case Study 3 -->
+        <div class="glass-panel p-lg rounded-xl border-l-4 border-l-primary/30 hover:border-l-primary transition-all duration-300">
+          <div class="flex flex-col md:flex-row justify-between mb-md">
+            <div>
+              <h3 class="font-title-md text-white">Enterprise Developer Tooling @ Cerner</h3>
+              <p class="text-primary/60 font-label-sm uppercase tracking-wider">Associate Lead Engineer</p>
+            </div>
+            <div class="mt-2 md:mt-0 flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-primary/5 rounded text-[10px] text-primary/60 border border-primary/20">BABEL</span>
+              <span class="px-2 py-1 bg-primary/5 rounded text-[10px] text-primary/60 border border-primary/20">AST PARSING</span>
+            </div>
+          </div>
+          <p class="text-on-surface-variant font-body-md">
+            Developed Proteus (AST-parsing/Babel) and MPageFusion UI framework to modernize large-scale healthcare interface development.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architectural Matrix -->
+    <section class="mb-xl" id="matrix">
+      <h2 class="font-headline-lg text-headline-lg text-primary uppercase mb-lg">Architectural Matrix</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md">
+        <div class="glass-panel p-md rounded-xl border border-primary/10">
+          <h4 class="font-label-sm text-primary mb-md uppercase tracking-widest border-b border-primary/20 pb-2">Distributed Systems</h4>
+          <ul class="text-[14px] text-on-surface-variant space-y-1">
+            <li>Kafka / AWS / K8s</li>
+            <li>PostgreSQL</li>
+            <li>GraphQL / REST</li>
+            <li>Microservices</li>
+          </ul>
+        </div>
+        <div class="glass-panel p-md rounded-xl border border-primary/10">
+          <h4 class="font-label-sm text-primary mb-md uppercase tracking-widest border-b border-primary/20 pb-2">Languages</h4>
+          <ul class="text-[14px] text-on-surface-variant space-y-1">
+            <li>Go / Python / Ruby</li>
+            <li>TS / JS / Node.js</li>
+            <li>Java / C#</li>
+            <li>Objective-C</li>
+          </ul>
+        </div>
+        <div class="glass-panel p-md rounded-xl border border-primary/10">
+          <h4 class="font-label-sm text-primary mb-md uppercase tracking-widest border-b border-primary/20 pb-2">Frontend</h4>
+          <ul class="text-[14px] text-on-surface-variant space-y-1">
+            <li>React / NextJS</li>
+            <li>React Native</li>
+            <li>Babel / ESLint</li>
+            <li>Webpack / Vite</li>
+          </ul>
+        </div>
+        <div class="glass-panel p-md rounded-xl border border-primary/10">
+          <h4 class="font-label-sm text-primary mb-md uppercase tracking-widest border-b border-primary/20 pb-2">Domain</h4>
+          <ul class="text-[14px] text-on-surface-variant space-y-1">
+            <li>HIPAA / PHI Compliance</li>
+            <li>FinTech Billing</li>
+            <li>NLU / Voice UI</li>
+            <li>CI/CD Automation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- IP & Open Source -->
+    <section class="grid grid-cols-12 gap-gutter mb-xl" id="eminence">
+      <div class="col-span-12 md:col-span-6 glass-panel p-lg rounded-xl border-primary/30">
+        <div class="flex justify-between items-start mb-lg">
+          <div>
+            <h4 class="font-title-md text-primary">Intellectual Property</h4>
+            <p class="font-label-sm text-primary/80 uppercase">U.S. PATENT PORTFOLIO</p>
+          </div>
+          <span class="material-symbols-outlined text-primary glow-accent">verified</span>
+        </div>
+        <div class="space-y-md">
+          <a href="https://patents.google.com/patent/US12494273B2/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-sm border-b border-primary/20 hover:bg-primary/5 transition-colors cursor-pointer group">
+            <div>
+              <div class="font-body-md text-white group-hover:text-primary">US12494273B2</div>
+              <div class="text-[12px] text-on-surface-variant">NLU De-duplication (Dec 2025)</div>
+            </div>
+            <span class="material-symbols-outlined text-primary">open_in_new</span>
+          </a>
+          <a href="https://patents.google.com/patent/US11392373B1/en" target="_blank" rel="noopener noreferrer" class="flex items-center justify-between p-sm border-b border-primary/20 hover:bg-primary/5 transition-colors cursor-pointer group">
+            <div>
+              <div class="font-body-md text-white group-hover:text-primary">US11392373B1</div>
+              <div class="text-[12px] text-on-surface-variant">Code Base Transformations (July 2022)</div>
+            </div>
+            <span class="material-symbols-outlined text-primary">open_in_new</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-span-12 md:col-span-6 glass-panel p-lg rounded-xl border-primary/30">
+        <div class="flex justify-between items-start mb-lg">
+          <div>
+            <h4 class="font-title-md text-primary">Open Source & Leadership</h4>
+            <p class="font-label-sm text-primary/80 uppercase">GOVERNANCE & COMMUNITY</p>
+          </div>
+          <span class="material-symbols-outlined text-primary glow-accent">hub</span>
+        </div>
+        <div class="space-y-4">
+          <div class="flex gap-md">
+            <div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-primary">code</span>
+            </div>
+            <div>
+              <div class="font-title-md text-white text-sm">ESLint TSC Member (2015-2020)</div>
+              <p class="text-[12px] text-on-surface-variant">Core governor and infrastructure architect for the world's most popular JS linter.</p>
+            </div>
+          </div>
+          <div class="flex gap-md">
+            <div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center shrink-0">
+              <span class="material-symbols-outlined text-primary">groups</span>
+            </div>
+            <div>
+              <div class="font-title-md text-white text-sm">IEEE Senior Member</div>
+              <p class="text-[12px] text-on-surface-variant">Recognized for significant contributions to the engineering profession.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Engineering Lab -->
+    <section class="mb-xl" id="lab">
+      <h2 class="font-headline-lg text-headline-lg text-primary uppercase mb-lg">Engineering Lab</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+        <div class="glass-panel p-lg rounded-xl group hover:border-primary/60 transition-all">
+          <div class="flex items-center gap-md mb-md">
+            <span class="material-symbols-outlined text-primary text-3xl">home_iot_device</span>
+            <h3 class="font-title-md text-white">Home Garage Automation</h3>
+          </div>
+          <p class="text-on-surface-variant mb-md">Edge computing system using Raspberry Pi, AWS IoT, and Node.js for real-time monitoring and control.</p>
+          <div class="flex gap-sm">
+            <span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded">IOT</span>
+            <span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded">RPI</span>
+          </div>
+        </div>
+        <div class="glass-panel p-lg rounded-xl group hover:border-primary/60 transition-all">
+          <div class="flex items-center gap-md mb-md">
+            <span class="material-symbols-outlined text-primary text-3xl">sports_esports</span>
+            <h3 class="font-title-md text-white">Ludum Dare Game Jams</h3>
+          </div>
+          <p class="text-on-surface-variant mb-md">Rapid prototyping and creative engineering using Godot (C#) and Phaser for global competition entries.</p>
+          <div class="flex gap-sm">
+            <span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded">GODOT</span>
+            <span class="text-[10px] bg-primary/10 text-primary px-2 py-1 rounded">GAMEDEV</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Writing / Blog Section -->
+    <section class="mb-xl" id="blog">
+      <h2 class="font-headline-lg text-headline-lg text-primary uppercase mb-lg">Recent Writing</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+        {sortedPosts.map(post => (
+          <div class="glass-panel p-lg rounded-xl border-l-4 border-l-primary/30 hover:border-l-primary hover:bg-white/[0.02] transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-md">
+                <div>
+                  <h3 class="font-title-md text-white">
+                    <a class="hover:text-primary transition-colors font-semibold" href={`/${post.urlSlug}/`}>
+                      {post.data.title}
+                    </a>
+                  </h3>
+                  <p class="text-primary/70 font-label-sm uppercase tracking-wider mt-1">{post.formattedDate}</p>
+                </div>
+              </div>
+              {post.data.excerpt && (
+                <p class="text-on-surface-variant font-body-md mb-md line-clamp-3">
+                  {post.data.excerpt}
+                </p>
+              )}
+            </div>
             {post.data.tags && post.data.tags.length > 0 && (
-              <span>&bull;</span>
-              <span>{post.data.tags[0]}</span>
+              <div class="flex flex-wrap gap-xs mt-auto pt-sm">
+                {post.data.tags.map(tag => (
+                  <span class="text-[12px] font-mono text-primary/60 px-2 py-0.5 border border-primary/10 rounded uppercase">{tag}</span>
+                ))}
+              </div>
             )}
           </div>
-          <h3>
-            <a href={`/${post.urlSlug}/`}>{post.data.title}</a>
-          </h3>
-          {post.data.excerpt && (
-            <p class="post-excerpt">{post.data.excerpt}</p>
-          )}
-          {post.data.tags && post.data.tags.length > 0 && (
-            <div class="tag-list">
-              {post.data.tags.map(tag => (
-                <span class="tag-badge">{tag}</span>
-              ))}
-            </div>
-          )}
-        </article>
-      ))}
-    </div>
-  </section>
+        ))}
+      </div>
+    </section>
 
-</BaseLayout>
+    <!-- Education -->
+    <section class="mb-xl">
+      <h2 class="font-headline-lg text-headline-lg text-primary uppercase mb-lg">Education</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+        <div class="glass-panel p-md rounded-xl flex items-center gap-md">
+          <span class="material-symbols-outlined text-primary">school</span>
+          <div>
+            <div class="font-title-md text-white text-sm">MS in Computer Science</div>
+            <div class="text-[12px] text-on-surface-variant">University of Houston-Clear Lake</div>
+          </div>
+        </div>
+        <div class="glass-panel p-md rounded-xl flex items-center gap-md">
+          <span class="material-symbols-outlined text-primary">history_edu</span>
+          <div>
+            <div class="font-title-md text-white text-sm">BE in Information Technology</div>
+            <div class="text-[12px] text-on-surface-variant">Pune University</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full py-xl bg-black border-t border-primary/20">
+    <div class="max-w-[1280px] mx-auto px-lg flex flex-col md:flex-row justify-between items-center gap-md">
+      <div class="flex flex-col gap-2">
+        <div class="font-headline-md text-[24px] font-bold text-primary uppercase tracking-tighter glow-accent">Gyandeep Singh</div>
+        <p class="font-technical-sm text-technical-sm text-on-surface-variant">© | Staff Software Engineer | IEEE Senior Member</p>
+      </div>
+      <div class="flex gap-lg">
+        <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors" href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors" href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors" href="#eminence">Patents</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Interactive Elements -->
+  <div class="fixed pointer-events-none w-[600px] h-[600px] rounded-full opacity-5 bg-primary blur-[120px] top-0 left-0 transition-transform duration-75 z-0" id="cursor-glow"></div>
+
+  <script is:inline>
+    // Cursor glow setup
+    const glow = document.getElementById('cursor-glow');
+    window.addEventListener('mousemove', (e) => {
+        glow.style.transform = `translate3d(${e.clientX - 300}px, ${e.clientY - 300}px, 0)`;
+    });
+
+    // Mobile navigation toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuIcon = mobileMenuBtn ? mobileMenuBtn.querySelector('.material-symbols-outlined') : null;
+
+    if (mobileMenuBtn && mobileMenu) {
+      function toggleMenu() {
+        const isOpen = mobileMenu.classList.contains('opacity-100');
+        if (isOpen) {
+          mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+          mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+          if (mobileMenuIcon) mobileMenuIcon.textContent = 'menu';
+          document.body.classList.remove('overflow-hidden');
+        } else {
+          mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+          mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+          if (mobileMenuIcon) mobileMenuIcon.textContent = 'close';
+          document.body.classList.add('overflow-hidden');
+        }
+      }
+
+      mobileMenuBtn.addEventListener('click', toggleMenu);
+      
+      // Close menu when clicking a link
+      document.querySelectorAll('.mobile-nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+          mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+          if (mobileMenuIcon) mobileMenuIcon.textContent = 'menu';
+          document.body.classList.remove('overflow-hidden');
+        });
+      });
+    }
+
+    // Scroll fade-in animations
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+                entry.target.classList.remove('opacity-0', 'translate-y-8');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.add('opacity-0', 'translate-y-8', 'transition-all', 'duration-700', 'ease-out');
+        observer.observe(section);
+    });
+  </script>
+</PortfolioLayout>

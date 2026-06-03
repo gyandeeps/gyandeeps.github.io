@@ -8,7 +8,7 @@ This repository contains the source code for the personal website and blog of Gy
 ## Technical Stack
 - **Core Framework:** [Astro v6](https://astro.build/)
 - **Node.js Version:** Determined by `.nvmrc` (v24)
-- **Styling:** Vanilla CSS / custom stylesheet setup
+- **Styling:** Tailwind CSS v4 / Vanilla CSS stylesheet setup
 - **Deployment:** GitHub Pages (custom domain via `CNAME`) using a GitHub Action workflow
 
 ## Repository Structure
@@ -18,12 +18,14 @@ This repository contains the source code for the personal website and blog of Gy
   - `content/` - Content collections.
     - `posts/` - Blog posts written in Markdown (`.md`).
   - `layouts/` - Page layouts.
-    - `BaseLayout.astro` - The primary template wrap for pages and posts.
+    - `BaseLayout.astro` - The primary template wrap for legacy pages and posts.
+    - `PortfolioLayout.astro` - The premium layout template for the landing page and modern articles.
   - `pages/` - Routing and views.
-    - `index.astro` - The home page displaying the list of blog posts.
-    - `about.astro` - The "About Me" page.
+    - `index.astro` - The home page rendering the premium dark-mode portfolio landing page.
     - `[slug].astro` - The dynamic page template that renders blog posts loaded from the `posts` collection.
-  - `styles/` - Global and local CSS stylesheets.
+  - `styles/` - CSS stylesheets.
+    - `global.css` - Global stylesheets.
+    - `landing.css` - Extracted custom dark-mode classes, animations, and Tailwind v4 configurations.
   - `content.config.js` - Defines the structure and schema validation for content collections (e.g. `posts`).
 - `public/` - Static assets served directly (e.g. CNAME, favicon, `.nojekyll` to allow serving directories starting with an underscore on GitHub Pages).
 - `.github/workflows/deploy.yml` - CI/CD pipeline triggering automated build and deploy to GitHub Pages on every push to `master`.

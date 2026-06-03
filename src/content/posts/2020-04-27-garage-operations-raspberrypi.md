@@ -1,5 +1,5 @@
 ---
-title: Garage door operations using Raspberry Pi
+title: Garage door operations using Raspberry Pi 
 excerpt: Automating garage door operations using raspberry pi and other electronic parts
 categories:
     - automation
@@ -78,14 +78,14 @@ We will use `BCM` conventions for GPIO pin numbers. When using pin numbers those
 
 I have a Chamberlain garage door opener, I was able to trace the button (from the wall) wires going into one terminal in your garage door opener. It looks like a thin looking wire as compared to regular electric wires in your house. Do not confuse the wires coming from the safety sensors hooked up to your garage door sides. In my case red was positive and white was negative.
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/garage-machine.jpg){: .align-center}
+![Garage Machine](/assets/images/garage/garage-machine.jpg)
 
 #### Connect wires from your garage opener sockets to relay module
 
 * Make sure you connect the negative (black in pic) to center terminal of the relay module and hot (red in pic) wire to left terminal on the relay module.
 * Concept is that when we connect these two wires, it completes the circuit which in turn trigger the garage open/close operation.
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/relay.jpg){: .align-center}
+![Relay module](/assets/images/garage/relay.jpg)
 
 #### Connect relay to raspberry pi
 
@@ -95,7 +95,7 @@ I have a Chamberlain garage door opener, I was able to trace the button (from th
 
 IN2 pin is what will be used to trigger the changes. Other 2 wires is to provide power (5v) to the relay.
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/relay-connection.jpg){: .align-center}
+![Relay connection](/assets/images/garage/relay-connection.jpg)
 
 #### Connect magnetic switch to raspberry pi
 
@@ -108,11 +108,11 @@ IN2 pin is what will be used to trigger the changes. Other 2 wires is to provide
 
 Mechanical switch connections
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/magnetic-switch.jpg){: .align-center}
+![Magnetic switch](/assets/images/garage/magnetic-switch.jpg)
 
 Connection to the raspberry pi
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/raspberrypi.jpg){: .align-center}
+![Raspberry Pi](/assets/images/garage/raspberrypi.jpg)
 
 #### Mechanical switch to the garage door
 
@@ -182,7 +182,7 @@ If you use the garage module, I have setup then it should get you all started. F
 
 Overall picture (needs to find a good place for this but they work for now)
 
-![image-center]({{ site.url }}{{ site.baseurl }}/assets/images/garage/overall.jpg){: .align-center}
+![Overall setup](/assets/images/garage/overall.jpg)
 
 ## References
 

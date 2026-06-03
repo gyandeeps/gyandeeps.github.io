@@ -9,7 +9,7 @@ The site was recently uplifted from a Jekyll-based setup to a modern, lightweigh
 ## 🚀 Technology Stack
 * **Framework:** [Astro v6](https://astro.build/)
 * **Runtime:** Node.js v24 (managed via `.nvmrc`)
-* **Styling:** Vanilla CSS
+* **Styling:** Tailwind CSS v4 & Vanilla CSS
 * **Hosting:** GitHub Pages with custom domain configuration (`CNAME`)
 * **CI/CD:** GitHub Actions workflow
 
@@ -19,8 +19,8 @@ The site was recently uplifted from a Jekyll-based setup to a modern, lightweigh
 * `src/pages/` - Site pages and routing, including the dynamic `[slug].astro` for rendering blog posts.
 * `src/content/posts/` - Blog posts written in Markdown (`.md`).
 * `src/components/` - Shared Astro components (e.g. Disqus comments integration).
-* `src/layouts/` - Layout templates (`BaseLayout.astro`).
-* `src/styles/` - Global styling rules.
+* `src/layouts/` - Layout templates (`BaseLayout.astro`, `PortfolioLayout.astro`).
+* `src/styles/` - Stylesheets (`global.css` and `landing.css` for custom animations/Tailwind setup).
 * `public/` - Static assets served as-is (icons, CNAME, etc.).
 
 ---
