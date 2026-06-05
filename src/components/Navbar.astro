@@ -1,0 +1,107 @@
+---
+interface Props {
+  isHome?: boolean;
+}
+
+const { isHome = false } = Astro.props;
+const prefix = isHome ? "" : "/";
+---
+
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-primary/20 h-20">
+  <div class="flex justify-between items-center max-w-[1280px] mx-auto px-md md:px-lg h-full">
+    {isHome ? (
+      <div class="font-headline-lg text-lg sm:text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-wide md:tracking-widest flex items-center shrink-0">
+        Gyandeep Singh
+      </div>
+    ) : (
+      <a href="/" class="font-headline-lg text-lg sm:text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-wide md:tracking-widest flex items-center hover:opacity-95 transition-opacity shrink-0 active-press">
+        Gyandeep Singh
+      </a>
+    )}
+    
+    <div class="hidden md:flex gap-lg items-center">
+      <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200 nav-link-active" href={`${prefix}#impact`}>Impact</a>
+      <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200 nav-link-active" href={`${prefix}#experience`}>Experience</a>
+      <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200 nav-link-active" href={`${prefix}#matrix`}>Architecture</a>
+      <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200 nav-link-active" href={`${prefix}#lab`}>Engineering Lab</a>
+      <a class="text-on-surface-variant font-technical-sm text-technical-sm hover:text-primary transition-colors duration-200 nav-link-active" href={`${prefix}#blog`}>Writing</a>
+      
+      <div class="flex gap-md items-center border-l border-primary/20 pl-lg ml-sm">
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center active-press" href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="GitHub">
+          <i class="fab fa-github text-lg"></i>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center active-press" href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" title="LinkedIn">
+          <i class="fab fa-linkedin text-lg"></i>
+        </a>
+        <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center active-press" href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" title="Twitter">
+          <i class="fab fa-twitter text-lg"></i>
+        </a>
+      </div>
+      <a href="mailto:gyandeeps@gmail.com" class="ml-4 px-md py-xs bg-primary text-black font-bold font-label-sm uppercase tracking-wider rounded-sm transition-all active-press">Connect</a>
+    </div>
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-btn" class="md:hidden text-primary hover:text-white transition-colors cursor-pointer flex items-center justify-center p-2 active-press" aria-label="Toggle Navigation Menu">
+      <span class="material-symbols-outlined text-2xl">menu</span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Navigation Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-40 bg-black/95 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300 md:hidden flex flex-col justify-center items-center gap-lg">
+  <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href={`${prefix}#impact`}>Impact</a>
+  <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href={`${prefix}#experience`}>Experience</a>
+  <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href={`${prefix}#matrix`}>Architecture</a>
+  <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href={`${prefix}#lab`}>Engineering Lab</a>
+  <a class="text-on-surface-variant font-headline-lg text-2xl hover:text-primary transition-colors duration-200 mobile-nav-link" href={`${prefix}#blog`}>Writing</a>
+  
+  <div class="flex gap-lg items-center border-t border-primary/20 pt-lg mt-md w-48 justify-center">
+    <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center active-press" href="https://github.com/gyandeeps" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+      <i class="fab fa-github text-xl"></i>
+    </a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center active-press" href="https://www.linkedin.com/in/gyandeeps" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      <i class="fab fa-linkedin text-xl"></i>
+    </a>
+    <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center active-press" href="https://twitter.com/gyandeeps" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+      <i class="fab fa-twitter text-xl"></i>
+    </a>
+  </div>
+  
+  <a href="mailto:gyandeeps@gmail.com" class="px-lg py-sm bg-primary text-black font-bold font-label-sm uppercase tracking-wider rounded-sm transition-all mt-lg mobile-nav-link active-press">Connect</a>
+</div>
+
+<script>
+  // Mobile navigation toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileMenuIcon = mobileMenuBtn ? mobileMenuBtn.querySelector('.material-symbols-outlined') : null;
+
+  if (mobileMenuBtn && mobileMenu) {
+    function toggleMenu() {
+      const isOpen = mobileMenu.classList.contains('opacity-100');
+      if (isOpen) {
+        mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+        if (mobileMenuIcon) mobileMenuIcon.textContent = 'menu';
+        document.body.classList.remove('overflow-hidden');
+      } else {
+        mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+        mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+        if (mobileMenuIcon) mobileMenuIcon.textContent = 'close';
+        document.body.classList.add('overflow-hidden');
+      }
+    }
+
+    mobileMenuBtn.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking a link
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+        mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+        if (mobileMenuIcon) mobileMenuIcon.textContent = 'menu';
+        document.body.classList.remove('overflow-hidden');
+      });
+    });
+  }
+</script>
