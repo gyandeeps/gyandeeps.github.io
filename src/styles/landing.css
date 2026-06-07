@@ -284,9 +284,7 @@ body {
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 15px 0 rgba(251, 191, 36, 0.05);
 }
 
-.case-card:active {
-  transform: translateY(0) scale(0.99);
-}
+
 
 /* Micro-interaction helpers */
 .active-press {
