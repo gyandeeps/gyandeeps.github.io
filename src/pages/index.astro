@@ -1,8 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import PortfolioLayout from '../layouts/PortfolioLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import selfImg from '../assets/images/self.jpg';
 
 const allPosts = await getCollection('posts');
 
@@ -62,7 +64,7 @@ const sortedPosts = processedPosts.sort((a, b) => b.dateObj.getTime() - a.dateOb
       <div class="col-span-12 lg:col-span-4 relative">
         <div class="border border-primary/15 p-2 rounded-xl">
           <div class="aspect-square glass-panel rounded-lg overflow-hidden relative group border-primary/30">
-            <img alt="Professional technical portrait of Gyandeep Singh" class="w-full h-full object-cover grayscale opacity-45 group-hover:grayscale-0 group-hover:opacity-85 transition-all duration-700" src="/assets/images/self.jpg"/>
+            <Image src={selfImg} alt="Professional technical portrait of Gyandeep Singh" class="w-full h-full object-cover grayscale opacity-45 group-hover:grayscale-0 group-hover:opacity-85 transition-all duration-700" width={400} height={400} loading="eager" />
             <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-60"></div>
           </div>
         </div>
